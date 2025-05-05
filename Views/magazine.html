@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Magazines - Blogy</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Add html2pdf library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #ffffff;
+      --accent-color: #f75815;
+      --light-bg: #f9f9f9;
+      --text-color: #212529;
+      --secondary-text: #6c757d;
+      --border-radius: 8px;
+      --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --hover-color: #f75815;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: var(--light-bg);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Styles */
+    .header {
+      background: var(--primary-color);
+      padding: 1rem 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent-color);
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 3rem 0;
+      background: var(--primary-color);
+      margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Filter Buttons */
+    .filter-section {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: var(--primary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.75rem;
+      margin: 0.5rem;
+      border: 2px solid var(--accent-color);
+      background: transparent;
+      color: var(--text-color);
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Download PDF Button */
+    .download-pdf {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+      margin-left: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .download-pdf:hover {
+      background: #218838;
+    }
+
+    .download-pdf i {
+      margin-right: 5px;
+    }
+
+    /* PDF Content Styles */
+    .pdf-content {
+      padding: 20px;
+      display: none;
+    }
+
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .pdf-magazine-item {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .pdf-magazine-title {
+      font-size: 18px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .pdf-magazine-price {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    /* Magazine Grid */
+    .magazine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .magazine-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: all 0.3s ease;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .magazine-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .magazine-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .magazine-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .magazine-card:hover .magazine-image img {
+      transform: scale(1.05);
+    }
+
+    .magazine-content {
+      padding: 1.5rem;
+    }
+
+    .magazine-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .magazine-description {
+      color: var(--secondary-text);
+      margin-bottom: 1rem;
+    }
+
+    .magazine-price {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .magazine-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .purchase-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .purchase-btn:hover {
+      background: var(--hover-color);
+      transform: translateY(-2px);
+    }
+
+    .purchase-btn i {
+      font-size: 1.1rem;
+    }
+
+    .magazine-title {
+      font-size: 1.25rem;
+      color: var(--text-color);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .magazine-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .magazine-rating {
+      color: #ffc107;
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    /* Action Buttons */
+    .action-btn {
+      flex: 1;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn:hover {
+      background: var(--hover-color);
+      transform: translateY(-2px);
+    }
+
+    .action-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Favorite Button */
+    .favorite-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite-btn:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+
+    .favorite-btn i {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-btn.active i {
+      color: var(--accent-color);
+    }
+
+    /* Hide magazines by default */
+    .magazine-card {
+      display: none;
+    }
+
+    /* Show magazines when their category is active */
+    .magazine-card[data-category="sports"],
+    .magazine-card[data-category="technology"],
+    .magazine-card[data-category="lifestyle"],
+    .magazine-card[data-category="business"],
+    .magazine-card[data-category="food"] {
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-color);
+      color: var(--text-color);
+      padding: 4rem 0 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--secondary-text);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .magazine-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .filter-section {
+        padding: 1rem;
+      }
+
+      .filter-btn {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.9rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Download Button Styles */
+    .download-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #2980b9;
+    }
+
+    .download-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* PDF Content Styles */
+    .pdf-content {
+      padding: 20px;
+      display: none;
+    }
+
+    .pdf-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .pdf-magazine-content {
+      margin-bottom: 20px;
+    }
+
+    .pdf-magazine-title {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .pdf-magazine-description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .pdf-magazine-price {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .pdf-magazine-category {
+      font-size: 14px;
+      color: #666;
+      text-transform: capitalize;
+    }
+
+    
+
+    /* Navigation Button Styles */
+    .nav-btn {
+      display: none;
+    }
+
+    /* Update magazine actions to accommodate new button */
+    .magazine-actions {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s;
+    }
+
+    .download-btn {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .download-btn:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function downloadMagazine(button) {
+      // Get the magazine card
+      const magazine = button.closest('.magazine-card');
+      
+      // Get all the necessary content
+      const title = magazine.querySelector('.magazine-title').textContent;
+      const description = magazine.querySelector('.magazine-description').textContent;
+      const price = magazine.querySelector('.magazine-price').textContent;
+      const category = magazine.getAttribute('data-category');
+      const image = magazine.querySelector('.magazine-image img').src;
+      const rating = magazine.querySelector('.magazine-rating').innerHTML;
+      
+      // Create a container for the PDF content
+      const container = document.createElement('div');
+      container.id = 'pdf-container';
+      container.style.cssText = `
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        width: 800px;
+        padding: 20px;
+        background: white;
+        font-family: Arial, sans-serif;
+      `;
+      
+      // Add the content to the container
+      container.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+          <img src="${image}" style="max-width: 300px; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+          <h1 style="color: #2c3e50; margin-bottom: 20px; font-size: 28px; font-weight: 600;">${title}</h1>
+          <div style="color: #666; margin-bottom: 30px; background: white; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <p style="margin: 10px 0; font-size: 16px;"><strong>Category:</strong> ${category.charAt(0).toUpperCase() + category.slice(1)}</p>
+            <p style="margin: 10px 0; font-size: 16px;"><strong>Price:</strong> ${price}</p>
+            <div style="margin: 15px 0; font-size: 18px; color: #ffc107;">${rating}</div>
+          </div>
+        </div>
+        <div style="line-height: 1.6; color: #333; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+          <h2 style="color: #2c3e50; margin-bottom: 20px; font-size: 24px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">Magazine Content</h2>
+          <div style="font-size: 16px; line-height: 1.8;">
+            ${description.split('. ').map(paragraph => `<p style="margin-bottom: 15px;">${paragraph}.</p>`).join('')}
+          </div>
+        </div>
+        <div style="margin-top: 30px; text-align: center; color: #666; font-size: 14px; padding-top: 20px; border-top: 1px solid #eee;">
+          <p>Generated on: ${new Date().toLocaleDateString()}</p>
+          <p>© 2024 Blogy Magazine. All rights reserved.</p>
+        </div>
+      `;
+      
+      // Add the container to the document
+      document.body.appendChild(container);
+      
+      // Wait for images to load
+      const images = container.getElementsByTagName('img');
+      let loadedImages = 0;
+      
+      const imageLoadPromises = Array.from(images).map(img => {
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.onload = resolve;
+            img.onerror = resolve; // Resolve even if image fails to load
+          }
+        });
+      });
+      
+      // Configure PDF options
+      const options = {
+        margin: 10,
+        filename: `${title.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: true,
+          onclone: function(clonedDoc) {
+            const clonedContainer = clonedDoc.getElementById('pdf-container');
+            if (clonedContainer) {
+              clonedContainer.style.position = 'relative';
+              clonedContainer.style.left = '0';
+              clonedContainer.style.top = '0';
+            }
+          }
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait'
+        }
+      };
+      
+      // Wait for all images to load before generating PDF
+      Promise.all(imageLoadPromises)
+        .then(() => {
+          return html2pdf()
+            .set(options)
+            .from(container)
+            .save();
+        })
+        .then(() => {
+          // Remove the temporary container
+          document.body.removeChild(container);
+        })
+        .catch(err => {
+          console.error('Error generating PDF:', err);
+          alert('There was an error generating the PDF. Please try again.');
+          // Clean up in case of error
+          if (document.body.contains(container)) {
+            document.body.removeChild(container);
+          }
+        });
+    }
+  </script>
+
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">Blogy</a>
+        <nav class="nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="article.html" class="nav-link">Articles</a>
+          <a href="magazine.html" class="nav-link active">Magazines</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-title">
+    <div class="container">
+      <h1>Our Magazines</h1>
+      <p>Discover our collection of premium magazines</p>
+      <div style="margin-top: 1rem;">
+        <a href="article.html" class="back-to-magazines">Browse Articles</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden PDF Content -->
+  <div id="pdf-content" class="pdf-content">
+    <div class="pdf-header">
+      <h1>Our Magazines</h1>
+      <p>Generated on: <span id="generation-date"></span></p>
+    </div>
+    <div id="pdf-magazines-list">
+      <!-- PDF content will be generated here -->
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sports">Sports</button>
+      <button class="filter-btn" data-filter="technology">Technology</button>
+      <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+      <button class="filter-btn" data-filter="business">Business</button>
+      <button class="filter-btn" data-filter="food">Food</button>
+    </div>
+
+    <!-- Magazine Grid -->
+    <div class="magazine-grid">
+      <!-- Sports Magazines -->
+      <article class="magazine-card" data-category="sports">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800" alt="Sports Weekly">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Sports Weekly</h3>
+          <p class="magazine-description">Comprehensive coverage of all major sports events and athletes. Get in-depth analysis of the latest matches, exclusive interviews with top athletes, training tips, and behind-the-scenes stories from the world of sports. Stay updated with the latest scores, statistics, and upcoming events across all major sports leagues.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$8.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="sports">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800" alt="Football Focus">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Football Focus</h3>
+          <p class="magazine-description">In-depth analysis of football leagues, teams, and players worldwide. Features tactical breakdowns, player profiles, transfer news, and expert predictions. Includes exclusive interviews with managers and players, match previews, and detailed post-match analysis. Perfect for football enthusiasts who want to stay ahead of the game.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$9.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="sports">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800" alt="Basketball Today">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Basketball Today</h3>
+          <p class="magazine-description">Latest news, stats, and stories from the world of basketball. Comprehensive coverage of NBA, EuroLeague, and international competitions. Features player spotlights, team analysis, draft prospects, and historical moments. Includes training tips, injury updates, and expert commentary on the evolving strategies of the game.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$7.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="sports">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800" alt="Tennis World">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Tennis World</h3>
+          <p class="magazine-description">Coverage of major tournaments and tennis stars. Detailed analysis of Grand Slam events, ATP and WTA tours, and rising stars. Features player interviews, match breakdowns, and technical analysis of playing styles. Includes training tips, equipment reviews, and insights into the mental aspects of the game.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$8.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="sports">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800" alt="Fitness & Training">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Fitness & Training</h3>
+          <p class="magazine-description">Expert advice on fitness, training, and sports performance. Comprehensive guides on strength training, cardio workouts, and nutrition plans. Features professional athlete training routines, injury prevention tips, and recovery strategies. Includes the latest research in sports science and practical advice for athletes of all levels.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$9.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Technology Magazines -->
+      <article class="magazine-card" data-category="technology">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800" alt="Tech Insights">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Tech Insights</h3>
+          <p class="magazine-description">Latest trends in technology, AI, and digital transformation. In-depth analysis of emerging technologies, startup innovations, and industry disruptions. Features expert interviews, product reviews, and future predictions. Includes practical guides for implementing new technologies in business and daily life.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$12.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="technology">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800" alt="Digital World">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Digital World</h3>
+          <p class="magazine-description">Exploring the digital landscape and emerging technologies. Comprehensive coverage of digital marketing, e-commerce, and social media trends. Features case studies, expert insights, and practical tips for digital success. Includes analysis of consumer behavior and the impact of digital transformation on various industries.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$11.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="technology">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800" alt="AI & Robotics">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">AI & Robotics</h3>
+          <p class="magazine-description">Cutting-edge developments in artificial intelligence and robotics. Detailed coverage of machine learning, neural networks, and automation technologies. Features expert interviews, research breakthroughs, and practical applications. Includes ethical discussions, future predictions, and guides for implementing AI solutions.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$13.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="technology">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800" alt="Code & Development">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Code & Development</h3>
+          <p class="magazine-description">Programming languages, frameworks, and development practices. Comprehensive guides on web development, mobile apps, and software engineering. Features coding tutorials, best practices, and industry trends. Includes interviews with leading developers, project case studies, and tips for career advancement in tech.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$12.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="technology">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800" alt="Future Tech">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Future Tech</h3>
+          <p class="magazine-description">Exploring tomorrow's technologies and innovations. In-depth analysis of emerging tech trends, from quantum computing to space exploration. Features expert predictions, research breakthroughs, and startup innovations. Includes discussions on the societal impact of future technologies and their potential applications.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$11.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Lifestyle Magazines -->
+      <article class="magazine-card" data-category="lifestyle">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800" alt="Modern Living">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Modern Living</h3>
+          <p class="magazine-description">Explore the latest trends in fashion, home, and wellness. Comprehensive guides on interior design, personal style, and healthy living. Features expert advice, product recommendations, and lifestyle tips. Includes interviews with designers, wellness experts, and real-life home makeover stories.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$9.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="lifestyle">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800" alt="Fashion Forward">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Fashion Forward</h3>
+          <p class="magazine-description">Latest trends, styles, and fashion industry insights. Comprehensive coverage of runway shows, designer collections, and street style. Features styling tips, trend forecasts, and sustainable fashion initiatives. Includes interviews with designers, models, and industry experts, plus shopping guides and wardrobe essentials.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$12.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="lifestyle">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800" alt="Travel & Adventure">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Travel & Adventure</h3>
+          <p class="magazine-description">Discover amazing destinations and travel experiences. Comprehensive guides to world destinations, from hidden gems to popular hotspots. Features travel tips, cultural insights, and adventure activities. Includes expert recommendations, budget travel advice, and sustainable tourism initiatives.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$11.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="lifestyle">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800" alt="Health & Wellness">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Health & Wellness</h3>
+          <p class="magazine-description">Tips for healthy living and mental wellbeing. Comprehensive coverage of nutrition, fitness, and mental health. Features expert advice, success stories, and practical wellness tips. Includes guides on stress management, sleep improvement, and maintaining a balanced lifestyle.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$10.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="lifestyle">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800" alt="Home & Design">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Home & Design</h3>
+          <p class="magazine-description">Interior design trends and home improvement ideas. Comprehensive guides on decorating, renovation, and organization. Features expert tips, DIY projects, and real home transformations. Includes product recommendations, color trends, and sustainable design solutions.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$9.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Business Magazines -->
+      <article class="magazine-card" data-category="business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="Business Weekly">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Business Weekly</h3>
+          <p class="magazine-description">Insights into global markets, entrepreneurship, and leadership. Comprehensive analysis of business trends, economic developments, and industry news. Features expert interviews, case studies, and market predictions. Includes guides on business strategy, management techniques, and career development.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$14.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Market Trends">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Market Trends</h3>
+          <p class="magazine-description">Analysis of market movements and investment opportunities. In-depth coverage of stock markets, commodities, and economic indicators. Features expert analysis, investment strategies, and market predictions. Includes guides on portfolio management, risk assessment, and financial planning.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$13.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800" alt="Entrepreneur">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Entrepreneur</h3>
+          <p class="magazine-description">Stories and strategies for business success and innovation. Comprehensive coverage of startup culture, business growth, and leadership. Features success stories, expert advice, and practical business tips. Includes guides on funding, marketing, and scaling businesses effectively.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$12.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800" alt="Finance Today">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Finance Today</h3>
+          <p class="magazine-description">Financial news, investment strategies, and market analysis. Comprehensive coverage of personal finance, investment opportunities, and economic trends. Features expert advice, market analysis, and financial planning guides. Includes tips on saving, investing, and managing personal finances effectively.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$13.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800" alt="Global Business">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Global Business</h3>
+          <p class="magazine-description">International business trends and global market insights. Comprehensive analysis of international trade, economic policies, and business opportunities. Features expert interviews, market research, and cultural business guides. Includes case studies of successful international businesses and expansion strategies.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$14.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Food Magazines -->
+      <article class="magazine-card" data-category="food">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" alt="Culinary Delights">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Culinary Delights</h3>
+          <p class="magazine-description">Discover world cuisines, recipes, and culinary adventures. Comprehensive guides to international cooking techniques and ingredients. Features chef interviews, restaurant reviews, and food trends. Includes step-by-step recipes, cooking tips, and cultural food stories from around the world.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$10.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="food">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800" alt="Gourmet Cooking">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Gourmet Cooking</h3>
+          <p class="magazine-description">Advanced cooking techniques and gourmet recipes. In-depth guides on professional cooking methods and presentation. Features master chef interviews, restaurant secrets, and culinary innovations. Includes detailed recipes, wine pairing guides, and tips for creating restaurant-quality dishes at home.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$11.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="food">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=800" alt="Healthy Eating">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Healthy Eating</h3>
+          <p class="magazine-description">Nutritious recipes and wellness-focused cooking. Comprehensive guides on healthy ingredients, meal planning, and dietary needs. Features nutritionist advice, healthy cooking techniques, and ingredient spotlights. Includes recipes for various dietary requirements and tips for maintaining a balanced diet.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$9.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="food">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57c8a288659?w=800" alt="World Cuisine">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">World Cuisine</h3>
+          <p class="magazine-description">Explore international flavors and cooking traditions. Comprehensive guides to world cuisines, from street food to fine dining. Features cultural food stories, traditional recipes, and modern interpretations. Includes cooking techniques, ingredient guides, and tips for authentic international cooking.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$12.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="magazine-card" data-category="food">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="magazine-image">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800" alt="Baking & Desserts">
+        </div>
+        <div class="magazine-content">
+          <h3 class="magazine-title">Baking & Desserts</h3>
+          <p class="magazine-description">Sweet treats and baking techniques for all skill levels. Comprehensive guides on baking fundamentals, pastry making, and dessert decoration. Features professional baker interviews, recipe development, and baking science. Includes step-by-step tutorials, troubleshooting guides, and creative dessert ideas.</p>
+          <div class="magazine-meta">
+            <span class="magazine-price">$10.99</span>
+            <div class="magazine-rating">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+          </div>
+          <div class="magazine-actions">
+            <a href="payment.html" class="purchase-btn">
+              <i class="bi bi-cart"></i>
+              Purchase
+            </a>
+            <button class="action-btn download-btn" onclick="downloadMagazine(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Add Google Translate Element -->
+  <div id="google_translate_element" style="text-align: center; margin: 20px 0;"></div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Blogy</h3>
+          <p>Your source for premium magazines and digital content.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="magazine.html">Magazines</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li>Email: info@blogy.com</li>
+            <li>Phone: (123) 456-7890</li>
+            <li>Address: 123 Magazine St, City</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Add category system -->
+  <script src="category.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const magazineCards = document.querySelectorAll('.magazine-card');
+
+      // Function to filter magazines
+      function filterMagazines(category) {
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.getAttribute('data-filter') === category) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Show/hide magazines based on category
+        magazineCards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      // Initialize with 'all' filter
+      filterMagazines('all');
+    });
+
+    function toggleFavorite(button) {
+      button.classList.toggle('active');
+      const icon = button.querySelector('i');
+      const magazineCard = button.closest('.magazine-card');
+      const magazineTitle = magazineCard.querySelector('.magazine-title').textContent;
+      const magazineImage = magazineCard.querySelector('.magazine-image').src;
+      const magazinePrice = magazineCard.querySelector('.magazine-price').textContent;
+
+      if (button.classList.contains('active')) {
+        icon.classList.remove('bi-heart');
+        icon.classList.add('bi-heart-fill');
+        
+        // Store the favorited magazine in localStorage
+        const favoriteMagazine = {
+          title: magazineTitle,
+          image: magazineImage,
+          price: magazinePrice
+        };
+        
+        // Get existing favorites or initialize empty array
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        favorites.push(favoriteMagazine);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        
+        // Redirect to favorites page
+        window.location.href = 'favorites.html';
+      } else {
+        icon.classList.remove('bi-heart-fill');
+        icon.classList.add('bi-heart');
+        
+        // Remove from favorites
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        favorites = favorites.filter(mag => mag.title !== magazineTitle);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }
+    }
+
+    function downloadAsPDF() {
+      const magazineCards = document.querySelectorAll('.magazine-card');
+      const pdfContent = document.getElementById('pdf-content');
+      const pdfMagazinesList = document.getElementById('pdf-magazines-list');
+      const generationDate = document.getElementById('generation-date');
+
+      // Set generation date
+      generationDate.textContent = new Date().toLocaleDateString();
+
+      // Generate PDF content
+      const pdfHTML = Array.from(magazineCards).map(card => {
+        const title = card.querySelector('.magazine-title').textContent;
+        const description = card.querySelector('.magazine-description').textContent;
+        const price = card.querySelector('.magazine-price').textContent;
+        const category = card.getAttribute('data-category');
+        
+        return `
+          <div class="pdf-magazine-item">
+            <h3 class="pdf-magazine-title">${title}</h3>
+            <p class="pdf-magazine-description">${description}</p>
+            <p class="pdf-magazine-price">${price}</p>
+            <p>Category: ${category.charAt(0).toUpperCase() + category.slice(1)}</p>
+          </div>
+        `;
+      }).join('');
+
+      pdfMagazinesList.innerHTML = pdfHTML;
+
+      // Configure PDF options
+      const opt = {
+        margin: 1,
+        filename: 'magazines-catalog.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      // Generate and download PDF
+      html2pdf().set(opt).from(pdfContent).save();
+    }
+
+    // Wait for the DOM to be fully loaded
+    window.addEventListener('load', function() {
+      console.log('Page loaded, initializing...'); // Debug log
+
+      // Get all necessary elements
+      const magazineCards = document.querySelectorAll('.magazine-card');
+
+      console.log('Found elements:', { // Debug log
+        magazineCards: magazineCards.length
+      });
+    });
+  </script>
+</body>
+</html> 
