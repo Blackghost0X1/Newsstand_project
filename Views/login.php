@@ -1,12 +1,60 @@
+<?php
+
+require_once '../Models/EndUser.php';
+require_once '../Controllers/AuthController.php';
+$error_mes="";
+$role_id_enduser = 2;
+$role_id_admin = 1;
+if(isset($_POST['email'])&&isset($_POST['password']))
+{
+  if(!empty($_POST['email'] )&&!empty ($_POST['password']))
+  {
+    $user= new EndUser;
+    $auth= new AuthController;
+    $user->email =$_POST['email'] ;
+    $user->password =$_POST['password'] ;
+    if(!$auth->login($user))
+    {
+      //session_start();
+      if(!isset($_SESSION["role_id"]))
+      {
+        session_start();
+      }
+      $error_mes=$_SESSION["error_mes"];
+    }
+    else
+    {
+      if(!isset($_SESSION["role_id"]))
+      {
+        session_start();
+      }
+      if($_SESSION["role_id"]==$role_id_admin)
+      {
+        header("Location: admin/index.html");
+      }
+      else
+      {
+        header("Location: index.html");
+      }
+    }
+
+  }
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Forgot Password - Newsstand</title>
-  <meta name="description" content="Reset your Newsstand password">
-  <meta name="keywords" content="reset password, forgot password, newsstand">
+  <title>Login - Newsstand</title>
+  <meta name="description" content="Login to your Newsstand account">
+  <meta name="keywords" content="login, newsstand, account">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -26,9 +74,17 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Blogy
+  * Template URL: https://bootstrapmade.com/blogy-bootstrap-blog-template/
+  * Updated: Feb 22 2025 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
-<body class="forgot-password-page">
+<body class="login-page">
 
   <header id="header" class="header position-relative">
     <div class="container-fluid container-xl position-relative">
@@ -47,24 +103,37 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="home.html"><i class="bi bi-house"></i> Home</a></li>
-            <li class="breadcrumb-item active current">Forgot Password</li>
+            <li class="breadcrumb-item active current">Login</li>
           </ol>
         </nav>
       </div>
 
       <div class="title-wrapper">
-        <h1>Reset Your Password</h1>
-        <p>Enter your email to receive a password reset link</p>
+        <h1>Login to Your Account</h1>
+        <p>Access your personalized news feed and saved articles</p>
       </div>
     </div>
+    <?php if (!empty($error_mes)) : ?>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <?php echo $error_mes; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
 
-    <!-- Forgot Password Section -->
-    <section id="forgot-password" class="forgot-password section">
+    <!-- Login Section -->
+    <section id="login" class="login section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <div class="form-wrapper" data-aos="fade-up" data-aos-delay="400">
-              <form id="forgotPasswordForm" action="process_forgot_password.php" method="post" class="needs-validation" novalidate>
+              <form id="loginForm" action="login.php" method="post" class="needs-validation" novalidate>
                 <div class="mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
@@ -75,12 +144,24 @@
                   </div>
                 </div>
 
+                <div class="mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <div class="invalid-feedback">
+                      Please enter your password.
+                    </div>
+                  </div>
+                </div>
+
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-lg w-100">Send Reset Link</button>
+                  <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
                 </div>
 
                 <div class="text-center mt-3">
-                  <a href="log in.html" class="text-decoration-none">Back to Login</a>
+                  <a href="forgot-password(1).html" class="text-decoration-none">Forgot Password?</a>
+                  <span class="mx-2">|</span>
+                  <a href="signup(1).php" class="text-decoration-none">Create Account</a>
                 </div>
               </form>
             </div>
