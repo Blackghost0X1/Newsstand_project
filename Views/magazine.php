@@ -569,37 +569,37 @@
             <a href="login.php"><i class="bi bi-person"></i> Login</a>
           </div>
 
-          <form class="search-form ms-4" method="get" action="search-results.html">
+          <form class="search-form ms-4" method="get" action="search-results.php">
             <input type="text" placeholder="Search..." class="form-control">
             <button type="submit" class="btn"><i class="bi bi-search"></i></button>
           </form>
-          </div>
         </div>
-          </div>
+      </div>
+    </div>
 
     <div class="nav-wrap">
       <div class="container d-flex justify-content-center position-relative">
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="subscription.html">Subscribtion</a></li>
-            <li><a href="blog-details.html">Blog Details</a></li>
-            <li><a href="author-profile.html">Author Profile</a></li>
-            <li><a href="favorites.html">Favourite</a></li>
+            <li><a href="subscription.php">Subscribtion</a></li>
+            <li><a href="blog-details.php">Blog Details</a></li>
+            <li><a href="author-profile.php">Author Profile</a></li>
+            <li><a href="favorites.php">Favourite</a></li>
             <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="blog-details.html">Blog Details</a></li>
-                <li><a href="search-results.html">Search Results</a></li>
-                <li><a href="account.html">MY Acoount</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="blog-details.php">Blog Details</a></li>
+                <li><a href="search-results.php">Search Results</a></li>
+                <li><a href="account.php">MY Acoount</a></li>
 
                 <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
-                    <li><a href="magazine.html" class="active">Magazine</a></li>
-                    <li><a href="article.html">Article</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="report.html">Report System </a></li>
-                    <li><a href="rate-system.html">Rate System</a></li>
+                    <li><a href="magazine.php">Magazine</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="report.php">Report System </a></li>
+                    <li><a href="rate-system.php">Rate System</a></li>
                   </ul>
                 </li>
               </ul>
@@ -616,7 +616,7 @@
       <h1>Our Magazines</h1>
       <p>Discover our collection of premium magazines</p>
       <div style="margin-top: 1rem;">
-        <a href="article.html" class="back-to-magazines">Browse Articles</a>
+        <a href="article.php" class="back-to-magazines">Browse Articles</a>
       </div>
     </div>
   </div>
@@ -1141,9 +1141,9 @@
           <h3>Quick Links</h3>
           <ul class="footer-links">
             <li><a href="index.php">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="magazine.html">Magazines</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="magazine.php">Magazines</a></li>
+            <li><a href="contact.php">Contact</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -1215,7 +1215,7 @@
         localStorage.setItem('favorites', JSON.stringify(favorites));
         
         // Redirect to favorites page
-        window.location.href = 'favorites.html';
+        window.location.href = 'favorites.php';
       } else {
         icon.classList.remove('bi-heart-fill');
         icon.classList.add('bi-heart');
@@ -1285,9 +1285,10 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 
-  <!-- Template Main JS File -->
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 </body>
 </html> 

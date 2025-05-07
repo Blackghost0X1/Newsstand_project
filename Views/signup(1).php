@@ -20,7 +20,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             if ($auth->confirm_password($user, $confirm_password)) {
                 if ($auth->signup($user)) {
                     $_SESSION['user']=$user;
-                    header("Location: index.html");
+                    header("Location: index.php");
                 } else {
                     $error_mes = $_SESSION['error_mes'];
                 }
@@ -83,7 +83,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
     <header id="header" class="header position-relative">
         <div class="container-fluid container-xl position-relative">
             <div class="top-row d-flex align-items-center justify-content-between">
-                <a href="home.html" class="logo d-flex align-items-end">
+                <a href="index.php" class="logo d-flex align-items-end">
                     <h1 class="sitename">Newsstand</h1><span>.</span>
                 </a>
             </div>
@@ -96,7 +96,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
             <div class="breadcrumbs">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="home.html"><i class="bi bi-house"></i> Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.php"><i class="bi bi-house"></i> Home</a></li>
                         <li class="breadcrumb-item active current">Sign Up</li>
                     </ol>
                 </nav>
@@ -182,7 +182,7 @@ if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['ema
 
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                    <label class="form-check-label" for="terms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                                    <label class="form-check-label" for="terms">I agree to the <a href="terms.php">Terms of Service</a> and <a href="privacy.php">Privacy Policy</a></label>
                                     <div class="invalid-feedback">
                                         You must agree to the terms and conditions.
                                     </div>

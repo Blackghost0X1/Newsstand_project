@@ -151,12 +151,13 @@
 
         <div class="d-flex align-items-center">
           <div class="social-links">
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://x.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="login.php"><i class="bi bi-person"></i> Login</a>
           </div>
 
-          <form class="search-form ms-4">
+          <form class="search-form ms-4" method="get" action="search-results.php">
             <input type="text" placeholder="Search..." class="form-control">
             <button type="submit" class="btn"><i class="bi bi-search"></i></button>
           </form>
@@ -169,30 +170,28 @@
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="category.html">Category</a></li>
-            <li><a href="blog-details.html">Blog Details</a></li>
-            <li><a href="author-profile.html">Author Profile</a></li>
+            <li><a href="subscription.php">Subscribtion</a></li>
+            <li><a href="blog-details.php">Blog Details</a></li>
+            <li><a href="author-profile.php">Author Profile</a></li>
+            <li><a href="favorites.php" class="active">Favourite</a></li>
             <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="category.html">Category</a></li>
-                <li><a href="blog-details.html">Blog Details</a></li>
-                <li><a href="author-profile.html">Author Profile</a></li>
-                <li><a href="search-results.html">Search Results</a></li>
-                <li><a href="404.html">404 Not Found Page</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="blog-details.php">Blog Details</a></li>
+                <li><a href="search-results.php">Search Results</a></li>
+                <li><a href="account.php">MY Acoount</a></li>
+
                 <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
+                    <li><a href="magazine.php">Magazine</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="report.php">Report System </a></li>
+                    <li><a href="rate-system.php">Rate System</a></li>
                   </ul>
                 </li>
               </ul>
             </li>
-            <li><a href="contact.html">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -235,8 +234,8 @@
             <i class="bi bi-bookmark" style="font-size: 3rem; color: rgb(208, 110, 6);"></i>
             <h4 class="mt-3">No favorites yet</h4>
             <p>Click the <i class="bi bi-bookmark"></i> icon on articles to save them here</p>
-            <a href="article.html" class="btn btn-outline-primary mt-3">Browse Articles</a>
-            <a href="magazine.html" class="btn btn-outline-primary mt-3">Browse Magazine</a>
+            <a href="article.php" class="btn btn-outline-primary mt-3">Browse Articles</a>
+            <a href="magazine.php" class="btn btn-outline-primary mt-3">Browse Magazine</a>
           </div>
         </div>
 
@@ -248,44 +247,10 @@
               <div class="post-item">
                 <img src="assets/img/blog/blog-post-square-1.webp" alt="" class="flex-shrink-0">
                 <div>
-                  <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
+                  <h4><a href="blog-details.php">The Future of Technology</a></h4>
+                  <time datetime="2024-01-01"><?php echo date('M d, Y'); ?></time>
                 </div>
               </div>
-
-              <div class="post-item">
-                <img src="assets/img/blog/blog-post-square-2.webp" alt="" class="flex-shrink-0">
-                <div>
-                  <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-              </div>
-
-              <div class="post-item">
-                <img src="assets/img/blog/blog-post-square-3.webp" alt="" class="flex-shrink-0">
-                <div>
-                  <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tags Widget -->
-            <div class="tags-widget widget-item">
-              <h3 class="widget-title">Tags</h3>
-              <ul>
-                <li><a href="#">App</a></li>
-                <li><a href="#">IT</a></li>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Mac</a></li>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">Office</a></li>
-                <li><a href="#">Creative</a></li>
-                <li><a href="#">Studio</a></li>
-                <li><a href="#">Smart</a></li>
-                <li><a href="#">Tips</a></li>
-                <li><a href="#">Marketing</a></li>
-              </ul>
             </div>
           </div>
         </div>
@@ -294,161 +259,87 @@
   </main>
 
   <footer id="footer" class="footer">
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.php" class="logo d-flex align-items-center">
-            <span class="sitename">Blogy</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Hic solutasetp</h4>
-          <ul>
-            <li><a href="#">Molestiae accusamus iure</a></li>
-            <li><a href="#">Excepturi dignissimos</a></li>
-            <li><a href="#">Suscipit distinctio</a></li>
-            <li><a href="#">Dilecta</a></li>
-            <li><a href="#">Sit quas consectetur</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Nobis illum</h4>
-          <ul>
-            <li><a href="#">Ipsam</a></li>
-            <li><a href="#">Laudantium dolorum</a></li>
-            <li><a href="#">Dinera</a></li>
-            <li><a href="#">Trodelas</a></li>
-            <li><a href="#">Flexo</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Blogy</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Blogy</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Preloader -->
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Favorites Functionality -->
   <script>
+    // Favorites functionality
     document.addEventListener('DOMContentLoaded', function() {
       const favoritesContainer = document.getElementById('favorites-container');
-      const emptyState = document.getElementById('no-favorites');
-      const clearBtn = document.getElementById('clear-favorites');
-      
+      const noFavorites = document.getElementById('no-favorites');
+      const clearFavoritesBtn = document.getElementById('clear-favorites');
+
+      // Load favorites from localStorage
       function loadFavorites() {
-        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         
         if (favorites.length === 0) {
-          favoritesContainer.innerHTML = '';
-          emptyState.style.display = 'block';
-          return;
-        }
-        
-        emptyState.style.display = 'none';
-        let html = '';
-        
-        favorites.forEach((article, index) => {
-          html += `
-            <div class="col-md-6 mb-4">
-              <div class="article-card">
-                <img src="${article.image || 'assets/img/blog/blog-post-square-1.webp'}" class="article-image" alt="${article.title}">
+          favoritesContainer.style.display = 'none';
+          noFavorites.style.display = 'block';
+        } else {
+          favoritesContainer.style.display = 'flex';
+          noFavorites.style.display = 'none';
+          
+          favoritesContainer.innerHTML = favorites.map(favorite => `
+            <div class="col-md-6 article-card">
+              <div class="card">
+                <img src="${favorite.image}" class="article-image" alt="${favorite.title}">
                 <div class="article-content">
-                  <h3 class="article-title">${article.title}</h3>
-                  <p class="article-meta">
-                    <span class="author">${article.author}</span>
-                    <span class="date">${article.date}</span>
-                  </p>
+                  <h3 class="article-title">${favorite.title}</h3>
+                  <p class="card-text">${favorite.excerpt}</p>
                   <div class="article-actions">
-                    <button class="remove-btn" onclick="removeFromFavorites(${index})">
-                      <i class="bi bi-bookmark-fill"></i> Remove from Favorites
+                    <a href="${favorite.link}" class="btn btn-outline-primary">Read More</a>
+                    <button class="remove-btn" data-id="${favorite.id}">
+                      <i class="bi bi-trash"></i> Remove
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-          `;
-        });
-        
-        favoritesContainer.innerHTML = html;
-      }
-      
-      // Make removeFromFavorites globally accessible
-      window.removeFromFavorites = function(index) {
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        if (index >= 0 && index < favorites.length) {
-          favorites.splice(index, 1);
-          localStorage.setItem('favorites', JSON.stringify(favorites));
-          loadFavorites();
+          `).join('');
         }
       }
-      
-      clearBtn.addEventListener('click', function() {
-        if (confirm('Are you sure you want to remove all favorites?')) {
+
+      // Clear all favorites
+      clearFavoritesBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear all favorites?')) {
           localStorage.removeItem('favorites');
           loadFavorites();
         }
       });
-      
+
+      // Remove individual favorite
+      favoritesContainer.addEventListener('click', function(e) {
+        if (e.target.closest('.remove-btn')) {
+          const button = e.target.closest('.remove-btn');
+          const id = button.dataset.id;
+          const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+          const updatedFavorites = favorites.filter(fav => fav.id !== id);
+          localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+          loadFavorites();
+        }
+      });
+
       // Initial load
       loadFavorites();
     });
   </script>
 </body>
-</html>
+</html> 

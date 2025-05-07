@@ -1,60 +1,12 @@
-<?php
-
-require_once '../Models/EndUser.php';
-require_once '../Controllers/AuthController.php';
-$error_mes="";
-$role_id_enduser = 2;
-$role_id_admin = 1;
-if(isset($_POST['email'])&&isset($_POST['password']))
-{
-  if(!empty($_POST['email'] )&&!empty ($_POST['password']))
-  {
-    $user= new EndUser;
-    $auth= new AuthController;
-    $user->email =$_POST['email'] ;
-    $user->password =$_POST['password'] ;
-    if(!$auth->login($user))
-    {
-      //session_start();
-      if(!isset($_SESSION["role_id"]))
-      {
-        session_start();
-      }
-      $error_mes=$_SESSION["error_mes"];
-    }
-    else
-    {
-      if(!isset($_SESSION["role_id"]))
-      {
-        session_start();
-      }
-      if($_SESSION["role_id"]==$role_id_admin)
-      {
-        header("Location: admin/index.html");
-      }
-      else
-      {
-        header("Location: index.php");
-      }
-    }
-
-  }
-}
-
-?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Login - Newsstand</title>
-  <meta name="description" content="Login to your Newsstand account">
-  <meta name="keywords" content="login, newsstand, account">
+  <title>Forgot Password - Newsstand</title>
+  <meta name="description" content="Reset your Newsstand password">
+  <meta name="keywords" content="reset password, forgot password, newsstand">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -75,16 +27,88 @@ if(isset($_POST['email'])&&isset($_POST['password']))
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Blogy
-  * Template URL: https://bootstrapmade.com/blogy-bootstrap-blog-template/
-  * Updated: Feb 22 2025 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <style>
+    .success-message {
+      display: none;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .error-message {
+      display: none;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .form-wrapper {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group-text {
+      background-color: #f8f9fa;
+      border-right: none;
+    }
+
+    .form-control {
+      border-left: none;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #ced4da;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+  </style>
 </head>
 
-<body class="login-page">
+<body class="forgot-password-page">
+  <?php
+  // Start session
+  session_start();
+
+  // Initialize variables
+  $errors = [];
+  $success = false;
+  $email = '';
+
+  // Handle form submission
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validate email
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+    if (!$email) {
+      $errors['email'] = 'Please enter a valid email address';
+    } else {
+      // Here you would typically:
+      // 1. Check if the email exists in your database
+      // 2. Generate a secure reset token
+      // 3. Store the token in the database with an expiration time
+      // 4. Send a reset link email to the user
+      
+      // For now, we'll just show a success message
+      $success = true;
+    }
+  }
+  ?>
 
   <header id="header" class="header position-relative">
     <div class="container-fluid container-xl position-relative">
@@ -103,65 +127,60 @@ if(isset($_POST['email'])&&isset($_POST['password']))
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php"><i class="bi bi-house"></i> Home</a></li>
-            <li class="breadcrumb-item active current">Login</li>
+            <li class="breadcrumb-item active current">Forgot Password</li>
           </ol>
         </nav>
       </div>
 
       <div class="title-wrapper">
-        <h1>Login to Your Account</h1>
-        <p>Access your personalized news feed and saved articles</p>
+        <h1>Reset Your Password</h1>
+        <p>Enter your email to receive a password reset link</p>
       </div>
     </div>
-    <?php if (!empty($error_mes)) : ?>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            <?php echo $error_mes; ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
 
-    <!-- Login Section -->
-    <section id="login" class="login section">
+    <!-- Forgot Password Section -->
+    <section id="forgot-password" class="forgot-password section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <div class="form-wrapper" data-aos="fade-up" data-aos-delay="400">
-              <form id="loginForm" action="login.php" method="post" class="needs-validation" novalidate>
+              <?php if ($success): ?>
+              <div class="success-message" style="display: block;">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                If an account exists with this email, you will receive a password reset link shortly.
+              </div>
+              <?php endif; ?>
+
+              <?php if (isset($errors['email'])): ?>
+              <div class="error-message" style="display: block;">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                <?php echo htmlspecialchars($errors['email']); ?>
+              </div>
+              <?php endif; ?>
+
+              <form method="POST" action="forgot-password.php" class="needs-validation" novalidate>
                 <div class="mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                    <input type="email" 
+                           class="form-control <?php echo isset($errors['email']) ? 'is-invalid' : ''; ?>" 
+                           id="email" 
+                           name="email" 
+                           placeholder="Email address" 
+                           value="<?php echo htmlspecialchars($email); ?>"
+                           required>
                     <div class="invalid-feedback">
                       Please enter a valid email address.
                     </div>
                   </div>
                 </div>
 
-                <div class="mb-3">
-                  <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-key"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                    <div class="invalid-feedback">
-                      Please enter your password.
-                    </div>
-                  </div>
-                </div>
-
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
+                  <button type="submit" class="btn btn-primary btn-lg w-100">Send Reset Link</button>
                 </div>
 
                 <div class="text-center mt-3">
-                  <a href="forgot-password.php" class="text-decoration-none">Forgot Password?</a>
-                  <span class="mx-2">|</span>
-                  <a href="signup(1).php" class="text-decoration-none">Create Account</a>
+                  <a href="login.php" class="text-decoration-none">Back to Login</a>
                 </div>
               </form>
             </div>
@@ -212,4 +231,4 @@ if(isset($_POST['email'])&&isset($_POST['password']))
   </script>
 </body>
 
-</html>
+</html> 

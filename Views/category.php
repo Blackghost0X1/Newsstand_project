@@ -252,86 +252,86 @@
 </head>
 
 <body>
+  <!-- Header -->
   <header class="header">
-    <div class="container">
-      <div class="header-content">
-        <a href="index.php" class="logo">Blogy</a>
-        <nav class="nav">
-          <a href="home.html" class="nav-link">Home</a>
-          <a href="about.html" class="nav-link">About</a>
-          <a href="category.html" class="nav-link active">Categories</a>
-          <a href="contact.html" class="nav-link">Contact</a>
-        </nav>
+    <div class="container header-content">
+      <a href="index.php" class="logo">Blogy</a>
+      <div class="nav-wrap">
+        <div class="container d-flex justify-content-center position-relative">
+          <nav id="navmenu" class="navmenu">
+            <ul>
+              <li><a href="index.php">Home</a></li>
+              <li><a href="subscription.php">Subscribtion</a></li>
+              <li><a href="blog-details.php">Blog Details</a></li>
+              <li><a href="author-profile.php">Author Profile</a></li>
+              <li><a href="favorites.php">Favourite</a></li>
+              <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="about.php">About</a></li>
+                  <li><a href="blog-details.php">Blog Details</a></li>
+                  <li><a href="search-results.php">Search Results</a></li>
+                  <li><a href="account.php">MY Acoount</a></li>
+
+                  <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <ul>
+                      <li><a href="magazine.php">Magazine</a></li>
+                      <li><a href="article.php">Article</a></li>
+                      <li><a href="contact.php">Contact</a></li>
+                      <li><a href="report.php">Report System </a></li>
+                      <li><a href="rate-system.php">Rate System</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </header>
 
-  <div class="page-title">
+  <!-- Page Title -->
+  <section class="page-title">
     <div class="container">
-      <h1>Browse Categories</h1>
-      <p>Explore our collection of articles and magazines by category</p>
+      <h1>Categories</h1>
+      <p>Explore our content by category</p>
     </div>
-  </div>
+  </section>
 
-  <main class="container">
-    <div class="category-grid">
+  <!-- Category Grid -->
+  <section class="category-grid">
+    <div class="container">
       <!-- Technology Category -->
       <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800" alt="Technology" class="category-image">
+        <img src="assets/img/tech-category.jpg" alt="Technology" class="category-image">
         <div class="category-content">
           <h2 class="category-title">
             <i class="bi bi-laptop"></i>
             Technology
           </h2>
-          <p class="category-description">Latest trends in technology, AI, and digital transformation.</p>
+          <p class="category-description">
+            Latest news and insights from the world of technology, including AI, software development, and digital innovation.
+          </p>
           <div class="category-stats">
             <div class="stat-item">
-              <div class="stat-number">25</div>
+              <div class="stat-number"><?php echo rand(50, 200); ?></div>
               <div class="stat-label">Articles</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">8</div>
+              <div class="stat-number"><?php echo rand(10, 50); ?></div>
               <div class="stat-label">Magazines</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><?php echo rand(1000, 5000); ?></div>
+              <div class="stat-label">Readers</div>
             </div>
           </div>
           <div class="category-actions">
-            <button class="action-btn view-articles" onclick="navigateToCategory('technology', 'article.html')">
-              <i class="bi bi-newspaper"></i>
+            <button class="action-btn view-articles">
+              <i class="bi bi-file-text"></i>
               View Articles
             </button>
-            <button class="action-btn view-magazines" onclick="navigateToCategory('technology', 'magazine.html')">
-              <i class="bi bi-book"></i>
-              View Magazines
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lifestyle Category -->
-      <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800" alt="Lifestyle" class="category-image">
-        <div class="category-content">
-          <h2 class="category-title">
-            <i class="bi bi-heart"></i>
-            Lifestyle
-          </h2>
-          <p class="category-description">Explore fashion, travel, health, and wellness content.</p>
-          <div class="category-stats">
-            <div class="stat-item">
-              <div class="stat-number">30</div>
-              <div class="stat-label">Articles</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">12</div>
-              <div class="stat-label">Magazines</div>
-            </div>
-          </div>
-          <div class="category-actions">
-            <button class="action-btn view-articles" onclick="navigateToCategory('lifestyle', 'article.html')">
-              <i class="bi bi-newspaper"></i>
-              View Articles
-            </button>
-            <button class="action-btn view-magazines" onclick="navigateToCategory('lifestyle', 'magazine.html')">
+            <button class="action-btn view-magazines">
               <i class="bi bi-book"></i>
               View Magazines
             </button>
@@ -341,29 +341,35 @@
 
       <!-- Business Category -->
       <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="Business" class="category-image">
+        <img src="assets/img/business-category.jpg" alt="Business" class="category-image">
         <div class="category-content">
           <h2 class="category-title">
             <i class="bi bi-briefcase"></i>
             Business
           </h2>
-          <p class="category-description">Insights into global markets, entrepreneurship, and leadership.</p>
+          <p class="category-description">
+            Business news, market analysis, and insights for entrepreneurs and professionals.
+          </p>
           <div class="category-stats">
             <div class="stat-item">
-              <div class="stat-number">20</div>
+              <div class="stat-number"><?php echo rand(50, 200); ?></div>
               <div class="stat-label">Articles</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">10</div>
+              <div class="stat-number"><?php echo rand(10, 50); ?></div>
               <div class="stat-label">Magazines</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><?php echo rand(1000, 5000); ?></div>
+              <div class="stat-label">Readers</div>
             </div>
           </div>
           <div class="category-actions">
-            <button class="action-btn view-articles" onclick="navigateToCategory('business', 'article.html')">
-              <i class="bi bi-newspaper"></i>
+            <button class="action-btn view-articles">
+              <i class="bi bi-file-text"></i>
               View Articles
             </button>
-            <button class="action-btn view-magazines" onclick="navigateToCategory('business', 'magazine.html')">
+            <button class="action-btn view-magazines">
               <i class="bi bi-book"></i>
               View Magazines
             </button>
@@ -371,31 +377,37 @@
         </div>
       </div>
 
-      <!-- Food Category -->
+      <!-- Lifestyle Category -->
       <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" alt="Food" class="category-image">
+        <img src="assets/img/lifestyle-category.jpg" alt="Lifestyle" class="category-image">
         <div class="category-content">
           <h2 class="category-title">
-            <i class="bi bi-cup-hot"></i>
-            Food
+            <i class="bi bi-heart"></i>
+            Lifestyle
           </h2>
-          <p class="category-description">Discover world cuisines, recipes, and culinary adventures.</p>
+          <p class="category-description">
+            Tips and trends for living your best life, from health and wellness to travel and entertainment.
+          </p>
           <div class="category-stats">
             <div class="stat-item">
-              <div class="stat-number">15</div>
+              <div class="stat-number"><?php echo rand(50, 200); ?></div>
               <div class="stat-label">Articles</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">6</div>
+              <div class="stat-number"><?php echo rand(10, 50); ?></div>
               <div class="stat-label">Magazines</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number"><?php echo rand(1000, 5000); ?></div>
+              <div class="stat-label">Readers</div>
             </div>
           </div>
           <div class="category-actions">
-            <button class="action-btn view-articles" onclick="navigateToCategory('food', 'article.html')">
-              <i class="bi bi-newspaper"></i>
+            <button class="action-btn view-articles">
+              <i class="bi bi-file-text"></i>
               View Articles
             </button>
-            <button class="action-btn view-magazines" onclick="navigateToCategory('food', 'magazine.html')">
+            <button class="action-btn view-magazines">
               <i class="bi bi-book"></i>
               View Magazines
             </button>
@@ -403,37 +415,48 @@
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>About Blogy</h3>
-          <p>Your source for premium magazines and digital content.</p>
-        </div>
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul class="footer-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="category.html">Categories</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <ul class="footer-links">
-            <li>Email: info@blogy.com</li>
-            <li>Phone: (123) 456-7890</li>
-            <li>Address: 123 Magazine St, City</li>
-          </ul>
-        </div>
+    <div class="container footer-content">
+      <div class="footer-section">
+        <h3>About Us</h3>
+        <ul class="footer-links">
+          <li><a href="about.php">Our Story</a></li>
+          <li><a href="contact.php">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul class="footer-links">
+          <li><a href="#">Technology</a></li>
+          <li><a href="#">Business</a></li>
+          <li><a href="#">Lifestyle</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <ul class="footer-links">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
       </div>
     </div>
   </footer>
 
-  <!-- Add category system -->
-  <script src="category.js"></script>
+  <script>
+    // Add any JavaScript functionality here
+    document.querySelectorAll('.action-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const action = button.classList.contains('view-articles') ? 'articles' : 'magazines';
+        const category = button.closest('.category-card').querySelector('.category-title').textContent.trim();
+        console.log(`Viewing ${action} for ${category}`);
+        // Add your navigation logic here
+      });
+    });
+  </script>
 </body>
-</html>
+</html> 

@@ -10,11 +10,19 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
     :root {
@@ -336,51 +344,274 @@
         height: 300px;
       }
     }
+
+    /* Header and Navigation Styles */
+    .header {
+      background: var(--primary-color);
+      box-shadow: var(--box-shadow);
+      position: relative;
+      z-index: 1000;
+    }
+
+    .top-row {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-decoration: none;
+      color: var(--accent-color);
+    }
+
+    .sitename {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-color);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .search-form {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-form .form-control {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding-right: 40px;
+      border-radius: 20px;
+    }
+
+    .search-form .btn {
+      position: absolute;
+      right: 5px;
+      background: none;
+      border: none;
+      color: var(--text-color);
+    }
+
+    .nav-wrap {
+      background: var(--primary-color);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .navmenu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .navmenu ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navmenu li {
+      position: relative;
+      padding: 0 1rem;
+    }
+
+    .navmenu a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .navmenu a:hover {
+      color: var(--accent-color);
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dropdown > ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--primary-color);
+      min-width: 200px;
+      box-shadow: var(--box-shadow);
+      border-radius: var(--border-radius);
+      padding: 0.5rem 0;
+      z-index: 1000;
+    }
+
+    .dropdown:hover > ul {
+      display: block;
+    }
+
+    .dropdown ul li {
+      padding: 0;
+    }
+
+    .dropdown ul a {
+      padding: 0.5rem 1rem;
+      white-space: nowrap;
+    }
+
+    .dropdown ul .dropdown > ul {
+      left: 100%;
+      top: 0;
+    }
+
+    .mobile-nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+    }
+
+    @media (max-width: 991px) {
+      .mobile-nav-toggle {
+        display: block;
+      }
+
+      .navmenu ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--primary-color);
+        padding: 1rem;
+        box-shadow: var(--box-shadow);
+      }
+
+      .navmenu.active ul {
+        display: block;
+      }
+
+      .navmenu li {
+        padding: 0.5rem 0;
+      }
+
+      .dropdown > ul {
+        position: static;
+        box-shadow: none;
+        padding-left: 1rem;
+      }
+
+      .dropdown ul .dropdown > ul {
+        left: 0;
+      }
+    }
   </style>
 </head>
 
 <body>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="index.php">Blogy</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="article.html">Articles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="magazine.html">Magazines</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
+  <header id="header" class="header position-relative">
+    <div class="container-fluid container-xl position-relative">
+      <div class="top-row d-flex align-items-center justify-content-between">
+        <a href="index.php" class="logo d-flex align-items-end">
+          <h1 class="sitename">Blogy</h1><span>.</span>
+        </a>
+
+        <div class="d-flex align-items-center">
+          <div class="social-links">
+            <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://x.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="login.php"><i class="bi bi-person"></i> Login</a>
+          </div>
+
+          <form class="search-form ms-4" method="get" action="search-results.php">
+            <input type="text" placeholder="Search..." class="form-control">
+            <button type="submit" class="btn"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
       </div>
     </div>
-  </nav>
+
+    <div class="nav-wrap">
+      <div class="container d-flex justify-content-center position-relative">
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="subscription.php">Subscribtion</a></li>
+            <li><a href="blog-details.php" class="active">Blog Details</a></li>
+            <li><a href="author-profile.php">Author Profile</a></li>
+            <li><a href="favorites.php">Favourite</a></li>
+            <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="about.php">About</a></li>
+                <li><a href="blog-details.php">Blog Details</a></li>
+                <li><a href="search-results.php">Search Results</a></li>
+                <li><a href="account.php">MY Acoount</a></li>
+
+                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="magazine.php">Magazine</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="report.php">Report System </a></li>
+                    <li><a href="rate-system.php">Rate System</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
   <main class="container">
+    <?php
+    // Get article ID from URL
+    $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+    // In a real application, you would fetch the article from a database
+    // For now, we'll use a sample article
+    $article = [
+        'id' => $articleId,
+        'title' => 'Sample Article Title',
+        'author' => 'John Doe',
+        'authorImage' => 'assets/img/author.jpg',
+        'date' => date('F j, Y'),
+        'image' => 'assets/img/article.jpg',
+        'content' => 'This is a sample article content. In a real application, this would be fetched from a database.',
+        'tags' => ['Technology', 'Web Development', 'PHP'],
+        'category' => 'Technology'
+    ];
+    ?>
+
     <div class="article-details">
       <div class="text-center mb-4">
-        <h1 class="article-title" id="articleTitle"></h1>
+        <h1 class="article-title"><?php echo htmlspecialchars($article['title']); ?></h1>
         <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
-          <img id="authorImage" class="author-image" src="" alt="Author">
-          <span id="author" class="author"></span>
-          <span id="date" class="text-muted"></span>
+          <img class="author-image" src="<?php echo htmlspecialchars($article['authorImage']); ?>" alt="Author">
+          <span class="author"><?php echo htmlspecialchars($article['author']); ?></span>
+          <span class="text-muted"><?php echo htmlspecialchars($article['date']); ?></span>
         </div>
       </div>
-      <img id="articleImage" class="article-image" src="" alt="Article Image">
+      <img class="article-image" src="<?php echo htmlspecialchars($article['image']); ?>" alt="Article Image">
       
       <!-- Translation Controls -->
       <div class="translation-container">
@@ -414,8 +645,15 @@
         </div>
       </div>
 
-      <div class="article-content" id="articleContent"></div>
-      <div class="d-flex flex-wrap mt-4" id="articleTags"></div>
+      <div class="article-content">
+        <?php echo nl2br(htmlspecialchars($article['content'])); ?>
+      </div>
+
+      <div class="d-flex flex-wrap mt-4">
+        <?php foreach ($article['tags'] as $tag): ?>
+          <span class="article-tag"><?php echo htmlspecialchars($tag); ?></span>
+        <?php endforeach; ?>
+      </div>
 
       <!-- Share Section -->
       <div class="share-section mt-4 mb-4">
@@ -440,21 +678,46 @@
       <div class="comments-section">
         <h4><i class="bi bi-chat-dots"></i> Comments</h4>
         <div id="commentsList" class="mb-4">
-          <!-- Comments will be loaded here -->
+          <?php
+          // In a real application, you would fetch comments from a database
+          $comments = [
+              [
+                  'name' => 'Jane Smith',
+                  'email' => 'jane@example.com',
+                  'text' => 'Great article! Very informative.',
+                  'date' => date('Y-m-d H:i:s')
+              ],
+              [
+                  'name' => 'Mike Johnson',
+                  'email' => 'mike@example.com',
+                  'text' => 'Thanks for sharing this knowledge.',
+                  'date' => date('Y-m-d H:i:s', strtotime('-1 day'))
+              ]
+          ];
+
+          foreach ($comments as $comment): ?>
+            <div class="comment-item">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0"><?php echo htmlspecialchars($comment['name']); ?></h5>
+                <small class="text-muted"><?php echo date('F j, Y', strtotime($comment['date'])); ?></small>
+              </div>
+              <p class="mb-0"><?php echo htmlspecialchars($comment['text']); ?></p>
+            </div>
+          <?php endforeach; ?>
         </div>
         
         <!-- Comment Form -->
         <div class="comment-form">
           <h5><i class="bi bi-pencil-square"></i> Leave a Comment</h5>
-          <form id="commentForm">
+          <form id="commentForm" action="blog-details.php?id=<?php echo $articleId; ?>" method="POST">
             <div class="mb-3">
-              <input type="text" class="form-control" id="commentName" placeholder="Your Name" required>
+              <input type="text" class="form-control" name="name" placeholder="Your Name" required>
             </div>
             <div class="mb-3">
-              <input type="email" class="form-control" id="commentEmail" placeholder="Your Email" required>
+              <input type="email" class="form-control" name="email" placeholder="Your Email" required>
             </div>
             <div class="mb-3">
-              <textarea class="form-control" id="commentText" rows="4" placeholder="Share your thoughts..." required></textarea>
+              <textarea class="form-control" name="comment" rows="4" placeholder="Share your thoughts..." required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-send"></i> Post Comment
@@ -464,12 +727,12 @@
       </div>
 
       <div class="d-flex gap-3 mt-4">
-       <a href="article.html" <button class="action-btn" onclick="window.history.back()"> 
+        <a href="article.php" class="action-btn">
           <i class="bi bi-arrow-left"></i> Back to Articles
-        </button> </a>
+        </a>
         <button class="action-btn" onclick="downloadArticle()">
           <i class="bi bi-file-pdf"></i> Download PDF
-        </button> 
+        </button>
       </div>
     </div>
   </main>
@@ -486,10 +749,10 @@
           <h3>Quick Links</h3>
           <ul class="list-unstyled footer-links">
             <li><a href="index.php">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="article.html">Articles</a></li>
-            <li><a href="magazine.html">Magazines</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.php">About</a></li>
+            <li><a href="article.php">Articles</a></li>
+            <li><a href="magazine.php">Magazines</a></li>
+            <li><a href="contact.php">Contact</a></li>
           </ul>
         </div>
         <div class="col-md-4 mb-4">
@@ -504,54 +767,24 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 
   <script>
-    // Get the article ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = urlParams.get('id');
-
-    // Get the article data from localStorage
-    const articleData = JSON.parse(localStorage.getItem('currentArticle'));
-
     // Store original content
     let originalContent = {
-      title: '',
-      content: ''
+      title: '<?php echo addslashes($article['title']); ?>',
+      content: '<?php echo addslashes($article['content']); ?>'
     };
 
     // Add event listener for language selection
     document.getElementById('languageSelect').addEventListener('change', translateContent);
-
-    // Update the page content with the article data
-    if (articleData) {
-      document.getElementById('articleTitle').textContent = articleData.title;
-      document.getElementById('authorImage').src = articleData.authorImage;
-      document.getElementById('author').textContent = articleData.author;
-      document.getElementById('date').textContent = articleData.date;
-      document.getElementById('articleImage').src = articleData.image;
-      
-      // Store original content
-      originalContent.title = articleData.title;
-      originalContent.content = articleData.content;
-      
-      // Format the content with proper HTML structure
-      const content = articleData.content.replace(/\n/g, '<br>');
-      document.getElementById('articleContent').innerHTML = content;
-
-      // Add tags
-      const tagsContainer = document.getElementById('articleTags');
-      articleData.tags.forEach(tag => {
-        const tagElement = document.createElement('span');
-        tagElement.className = 'article-tag';
-        tagElement.textContent = tag;
-        tagsContainer.appendChild(tagElement);
-      });
-
-      // Load comments
-      loadComments();
-    }
 
     function translateContent() {
       const languageSelect = document.getElementById('languageSelect');
@@ -560,8 +793,8 @@
       
       if (!selectedLanguage) {
         // Restore original content if no language selected
-        document.getElementById('articleTitle').textContent = originalContent.title;
-        document.getElementById('articleContent').innerHTML = originalContent.content.replace(/\n/g, '<br>');
+        document.querySelector('.article-title').textContent = originalContent.title;
+        document.querySelector('.article-content').innerHTML = originalContent.content.replace(/\n/g, '<br>');
         return;
       }
 
@@ -591,8 +824,8 @@
         translateText(originalContent.content, selectedLanguage)
       ])
         .then(([translatedTitle, translatedContent]) => {
-          document.getElementById('articleTitle').textContent = translatedTitle;
-          document.getElementById('articleContent').innerHTML = translatedContent.replace(/\n/g, '<br>');
+          document.querySelector('.article-title').textContent = translatedTitle;
+          document.querySelector('.article-content').innerHTML = translatedContent.replace(/\n/g, '<br>');
         })
         .catch(error => {
           console.error('Translation failed:', error);
@@ -604,8 +837,8 @@
     }
 
     function listenToText() {
-      const articleContent = document.getElementById('articleContent').textContent;
-      const title = document.getElementById('articleTitle').textContent;
+      const articleContent = document.querySelector('.article-content').textContent;
+      const title = document.querySelector('.article-title').textContent;
       const selectedLanguage = document.getElementById('languageSelect').value || 'en';
       
       // Stop any ongoing speech
@@ -648,22 +881,36 @@
       }
     }
 
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+
+    function shareOnTwitter() {
+      const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+    }
+
+    function shareOnWhatsApp() {
+      const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+    }
+
     function downloadArticle() {
       // Get current content (including any translations)
-      const currentTitle = document.getElementById('articleTitle').textContent;
-      const currentContent = document.getElementById('articleContent').textContent;
-      const author = document.getElementById('author').textContent;
-      const date = document.getElementById('date').textContent;
-      const articleImage = document.getElementById('articleImage').src;
-      const articleData = JSON.parse(localStorage.getItem('currentArticle'));
+      const currentTitle = document.querySelector('.article-title').textContent;
+      const currentContent = document.querySelector('.article-content').textContent;
+      const author = document.querySelector('.author').textContent;
+      const date = document.querySelector('.text-muted').textContent;
+      const articleImage = document.querySelector('.article-image').src;
       
-      if (!articleData) return;
-
-      // Get comments
-      const articleId = new URLSearchParams(window.location.search).get('id');
-      const comments = JSON.parse(localStorage.getItem('articleComments')) || {};
-      const articleComments = comments[articleId] || [];
-
       // Create a container for the PDF content
       const container = document.createElement('div');
       container.style.padding = '20px';
@@ -688,7 +935,6 @@
           <div style="color: #666; margin-bottom: 30px;">
             <p style="margin: 5px 0;">Author: ${author}</p>
             <p style="margin: 5px 0;">Date: ${date}</p>
-            <p style="margin: 5px 0;">Category: ${articleData.category.charAt(0).toUpperCase() + articleData.category.slice(1)}</p>
           </div>
         </div>
         <div style="line-height: 1.6; color: #333;">
@@ -696,260 +942,29 @@
             ${formattedContent}
           </div>
         </div>
-        <div style="margin-top: 40px; border-top: 2px solid #eee; padding-top: 20px;">
-          <h2 style="color: #2c3e50; margin-bottom: 20px; font-size: 20px;">Comments</h2>
-          ${articleComments.length > 0 ? articleComments.map((comment, index) => `
-            <div style="margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border-left: 4px solid #f75815;">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                <strong style="color: #2c3e50;">${comment.name}</strong>
-                <small style="color: #666;">${new Date(comment.date).toLocaleDateString()}</small>
-              </div>
-              <p style="margin: 0; color: #333;">${comment.text}</p>
-            </div>
-          `).join('') : '<p style="color: #666; font-style: italic;">No comments yet.</p>'}
-        </div>
       `;
       
       // Add the container to the document temporarily
       document.body.appendChild(container);
       
-      // Configure PDF options
-      const options = {
+      // Use html2pdf.js to generate PDF
+      const element = container;
+      const opt = {
         margin: 10,
         filename: `${currentTitle.toLowerCase().replace(/\s+/g, '-')}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          logging: true,
-          onclone: function(clonedDoc) {
-            // Ensure all content is visible in the cloned document
-            const clonedContainer = clonedDoc.querySelector('div');
-            if (clonedContainer) {
-              clonedContainer.style.display = 'block';
-              clonedContainer.style.visibility = 'visible';
-              clonedContainer.style.position = 'relative';
-              clonedContainer.style.left = '0';
-              clonedContainer.style.opacity = '1';
-            }
-          }
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait'
-        }
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
-      // Show loading indicator
-      const loadingDiv = document.createElement('div');
-      loadingDiv.style.position = 'fixed';
-      loadingDiv.style.top = '50%';
-      loadingDiv.style.left = '50%';
-      loadingDiv.style.transform = 'translate(-50%, -50%)';
-      loadingDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
-      loadingDiv.style.color = 'white';
-      loadingDiv.style.padding = '20px';
-      loadingDiv.style.borderRadius = '5px';
-      loadingDiv.innerHTML = `
-        <div class="spinner-border text-light" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="mt-2">Generating PDF...</p>
-      `;
-      document.body.appendChild(loadingDiv);
-      
-      // Generate PDF
-      html2pdf()
-        .set(options)
-        .from(container)
-        .save()
-        .then(() => {
-          // Remove the temporary container and loading indicator
-          document.body.removeChild(container);
-          document.body.removeChild(loadingDiv);
-        })
-        .catch(err => {
-          console.error('Error generating PDF:', err);
-          alert('There was an error generating the PDF. Please try again.');
-          // Clean up in case of error
-          if (document.body.contains(container)) {
-            document.body.removeChild(container);
-          }
-          if (document.body.contains(loadingDiv)) {
-            document.body.removeChild(loadingDiv);
-          }
-        });
-    }
-
-    // Share functions
-    function shareOnFacebook() {
-      const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.getElementById('articleTitle').textContent);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, '_blank');
-    }
-
-    function shareOnTwitter() {
-      const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.getElementById('articleTitle').textContent);
-      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank');
-    }
-
-    function shareOnLinkedIn() {
-      const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.getElementById('articleTitle').textContent);
-      window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, '_blank');
-    }
-
-    function shareOnWhatsApp() {
-      const url = encodeURIComponent(window.location.href);
-      const title = encodeURIComponent(document.getElementById('articleTitle').textContent);
-      window.open(`https://wa.me/?text=${title}%20${url}`, '_blank');
-    }
-
-    // Comments functionality
-    function loadComments() {
-      const comments = JSON.parse(localStorage.getItem('articleComments')) || {};
-      const articleId = new URLSearchParams(window.location.search).get('id');
-      const articleComments = comments[articleId] || [];
-      
-      const commentsList = document.getElementById('commentsList');
-      commentsList.innerHTML = '';
-      
-      if (articleComments.length === 0) {
-        commentsList.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
-        return;
-      }
-
-      articleComments.forEach((comment, index) => {
-        const commentElement = document.createElement('div');
-        commentElement.className = 'comment-item mb-3 p-3 border rounded';
-        commentElement.innerHTML = `
-          <div class="d-flex justify-content-between">
-            <h6 class="mb-1">${comment.name}</h6>
-            <small class="text-muted">${new Date(comment.date).toLocaleDateString()}</small>
-          </div>
-          <p class="mb-0 comment-text">${comment.text}</p>
-          <div class="comment-actions">
-            <button class="edit-btn" onclick="editComment(${index})">
-              <i class="bi bi-pencil"></i> Edit
-            </button>
-            <button class="delete-btn" onclick="deleteComment(${index})">
-              <i class="bi bi-trash"></i> Delete
-            </button>
-          </div>
-          <div class="edit-comment-form" id="editForm${index}">
-            <textarea class="form-control mb-2" id="editCommentText${index}" rows="3">${comment.text}</textarea>
-            <div class="d-flex gap-2">
-              <button class="btn btn-success btn-sm" onclick="saveEdit(${index})">
-                <i class="bi bi-check"></i> Save
-              </button>
-              <button class="btn btn-secondary btn-sm" onclick="cancelEdit(${index})">
-                <i class="bi bi-x"></i> Cancel
-              </button>
-            </div>
-          </div>
-        `;
-        commentsList.appendChild(commentElement);
+      // Remove the container after PDF generation
+      html2pdf().set(opt).from(element).save().then(() => {
+        document.body.removeChild(container);
       });
     }
-
-    function editComment(index) {
-      // Hide all edit forms first
-      document.querySelectorAll('.edit-comment-form').forEach(form => {
-        form.classList.remove('active');
-      });
-      
-      // Show the selected edit form
-      const editForm = document.getElementById(`editForm${index}`);
-      editForm.classList.add('active');
-      
-      // Focus on the textarea
-      const textarea = document.getElementById(`editCommentText${index}`);
-      textarea.focus();
-    }
-
-    function saveEdit(index) {
-      const newText = document.getElementById(`editCommentText${index}`).value;
-      const comments = JSON.parse(localStorage.getItem('articleComments')) || {};
-      const articleId = new URLSearchParams(window.location.search).get('id');
-      
-      if (comments[articleId] && comments[articleId][index]) {
-        comments[articleId][index].text = newText;
-        comments[articleId][index].date = new Date().toISOString();
-        localStorage.setItem('articleComments', JSON.stringify(comments));
-        
-        // Hide the edit form
-        document.getElementById(`editForm${index}`).classList.remove('active');
-        
-        // Reload comments
-        loadComments();
-        
-        // Show success message
-        alert('Comment updated successfully!');
-      }
-    }
-
-    function cancelEdit(index) {
-      // Hide the edit form
-      document.getElementById(`editForm${index}`).classList.remove('active');
-    }
-
-    function deleteComment(index) {
-      if (confirm('Are you sure you want to delete this comment?')) {
-        const comments = JSON.parse(localStorage.getItem('articleComments')) || {};
-        const articleId = new URLSearchParams(window.location.search).get('id');
-        
-        if (comments[articleId]) {
-          comments[articleId].splice(index, 1);
-          localStorage.setItem('articleComments', JSON.stringify(comments));
-          
-          // Reload comments
-          loadComments();
-          
-          // Show success message
-          alert('Comment deleted successfully!');
-        }
-      }
-    }
-
-    // Handle comment form submission
-    document.getElementById('commentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('commentName').value;
-      const email = document.getElementById('commentEmail').value;
-      const text = document.getElementById('commentText').value;
-      const articleId = new URLSearchParams(window.location.search).get('id');
-      
-      const comment = {
-        name,
-        email,
-        text,
-        date: new Date().toISOString()
-      };
-      
-      const comments = JSON.parse(localStorage.getItem('articleComments')) || {};
-      if (!comments[articleId]) {
-        comments[articleId] = [];
-      }
-      comments[articleId].push(comment);
-      
-      localStorage.setItem('articleComments', JSON.stringify(comments));
-      
-      // Clear form
-      this.reset();
-      
-      // Reload comments
-      loadComments();
-      
-      // Show success message
-      alert('Comment posted successfully!');
-    });
   </script>
 
-  <!-- Add html2pdf library -->
+  <!-- html2pdf.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
-</html>
+</html> 
