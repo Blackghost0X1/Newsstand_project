@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription - Blogy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --accent-color: #f75815;
+            --light-bg: #f9f9f9;
+            --text-color: #212529;
+            --secondary-text: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .subscription-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .subscription-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .subscription-header h1 {
+            color: var(--text-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .subscription-header p {
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+        }
+
+        .subscription-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .subscription-plan {
+            background: var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+
+        .subscription-plan:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .subscription-plan.popular {
+            border-color: var(--accent-color);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .plan-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--secondary-text);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .plan-features li i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+
+        .btn-subscribe {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-subscribe:hover {
+            background: #e64a0a;
+            transform: translateY(-2px);
+        }
+
+        .subscription-benefits {
+            background: var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            margin-top: 3rem;
+        }
+
+        .benefits-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .benefits-header h2 {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .benefit-description {
+            color: var(--secondary-text);
+        }
+
+        @media (max-width: 768px) {
+            .subscription-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .subscription-plans {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="subscription-container">
+        <div class="subscription-header">
+            <h1>Choose Your Subscription Plan</h1>
+            <p>Get unlimited access to premium content and exclusive features</p>
+        </div>
+
+        <div class="subscription-plans">
+            <div class="subscription-plan">
+                <i class="bi bi-newspaper plan-icon"></i>
+                <h3 class="plan-name">Basic</h3>
+                <div class="plan-price">$9.99<span>/month</span></div>
+                <ul class="plan-features">
+                    <li><i class="bi bi-check"></i> Access to all articles</li>
+                    <li><i class="bi bi-check"></i> Basic magazine access</li>
+                    <li><i class="bi bi-check"></i> Email notifications</li>
+                    <li><i class="bi bi-check"></i> Standard support</li>
+                </ul>
+                <button class="btn-subscribe">Subscribe Now</button>
+            </div>
+
+            <div class="subscription-plan popular">
+                <div class="popular-badge">Most Popular</div>
+                <i class="bi bi-star plan-icon"></i>
+                <h3 class="plan-name">Premium</h3>
+                <div class="plan-price">$19.99<span>/month</span></div>
+                <ul class="plan-features">
+                    <li><i class="bi bi-check"></i> All Basic features</li>
+                    <li><i class="bi bi-check"></i> Premium magazine access</li>
+                    <li><i class="bi bi-check"></i> Early access to new content</li>
+                    <li><i class="bi bi-check"></i> Priority support</li>
+                    <li><i class="bi bi-check"></i> Ad-free experience</li>
+                </ul>
+                <button class="btn-subscribe">Subscribe Now</button>
+            </div>
+
+            <div class="subscription-plan">
+                <i class="bi bi-award plan-icon"></i>
+                <h3 class="plan-name">Enterprise</h3>
+                <div class="plan-price">$49.99<span>/month</span></div>
+                <ul class="plan-features">
+                    <li><i class="bi bi-check"></i> All Premium features</li>
+                    <li><i class="bi bi-check"></i> Custom content solutions</li>
+                    <li><i class="bi bi-check"></i> Team collaboration tools</li>
+                    <li><i class="bi bi-check"></i> Dedicated account manager</li>
+                    <li><i class="bi bi-check"></i> API access</li>
+                </ul>
+                <button class="btn-subscribe">Subscribe Now</button>
+            </div>
+        </div>
+
+        <div class="subscription-benefits">
+            <div class="benefits-header">
+                <h2>Why Subscribe to Blogy?</h2>
+                <p>Discover the benefits of our premium subscription</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="bi bi-book benefit-icon"></i>
+                    <h4 class="benefit-title">Premium Content</h4>
+                    <p class="benefit-description">Access exclusive articles and in-depth analysis</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-download benefit-icon"></i>
+                    <h4 class="benefit-title">Offline Reading</h4>
+                    <p class="benefit-description">Download content for offline access</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-shield-check benefit-icon"></i>
+                    <h4 class="benefit-title">Ad-Free Experience</h4>
+                    <p class="benefit-description">Enjoy content without interruptions</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="bi bi-headset benefit-icon"></i>
+                    <h4 class="benefit-title">Priority Support</h4>
+                    <p class="benefit-description">Get help when you need it</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add click event to subscription buttons
+        document.querySelectorAll('.btn-subscribe').forEach(button => {
+            button.addEventListener('click', () => {
+                const plan = button.closest('.subscription-plan').querySelector('.plan-name').textContent;
+                window.location.href = `payment.html?plan=${plan.toLowerCase()}`;
+            });
+        });
+    </script>
+</body>
+</html>

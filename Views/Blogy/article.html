@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Articles - Blogy</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Add html2pdf library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #ffffff;
+      --accent-color: #f75815;
+      --light-bg: #f9f9f9;
+      --text-color: #212529;
+      --secondary-text: #6c757d;
+      --border-radius: 8px;
+      --box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      --card-bg: #ffffff;
+      --hover-color: #f75815;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: var(--light-bg);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header Styles */
+    .header {
+      background: var(--primary-color);
+      padding: 1rem 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent-color);
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      padding: 3rem 0;
+      background: var(--primary-color);
+      margin-bottom: 2rem;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Filter Buttons */
+    .filter-section {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--primary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.5rem;
+      margin: 0.5rem;
+      border: 2px solid var(--accent-color);
+      background: transparent;
+      color: var(--text-color);
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    /* Article Cards */
+    .article-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .article-content {
+      padding: 1.5rem;
+    }
+
+    .article-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .article-excerpt {
+      color: var(--secondary-text);
+    }
+
+    .article-tag {
+      background: var(--primary-color);
+      color: var(--text-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* Action Buttons */
+    .action-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--hover-color);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-color);
+      color: var(--text-color);
+     padding: 4rem 0 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--secondary-text);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+
+
+    /* Modal Styles */
+    .article-modal {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    .modal-close {
+      color: var(--text-color);
+    }
+
+    /* Favorite Button */
+    .favorite-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .favorite-btn:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+
+    .favorite-btn i {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-btn.active i {
+      color: var(--accent-color);
+    }
+
+
+    /* Translation Container */
+    .language-select {
+      background: var(--primary-color);
+      color: var(--text-color);
+      border: 1px solid var(--accent-color);
+      padding: 8px;
+      border-radius: var(--border-radius);
+    }
+
+    .listen-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .listen-btn:hover {
+      background: var(--hover-color);
+    }
+
+    /* Article Grid */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    .article-image {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 0.5rem;
+    }
+
+    .author-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .author {
+      font-weight: 500;
+      color: #666;
+    }
+
+    .date {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .article-full-content {
+      display: none;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .article-full-content h4 {
+      color: var(--primary-color);
+      margin: 1.5rem 0 1rem;
+    }
+
+    .article-full-content p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .article-full-content ul {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-full-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    .article-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .read-more {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .read-more:hover {
+      background: #0056b3;
+    }
+
+    .read-more.expanded {
+      background: #e74c3c;
+    }
+
+    .read-more.expanded:hover {
+      background: #c0392b;
+    }
+
+    /* Hide articles by default */
+    .article-card {
+      display: none;
+    }
+
+    /* Show articles when their category is active */
+    .article-card[data-category="technology"],
+    .article-card[data-category="lifestyle"],
+    .article-card[data-category="business"],
+    .article-card[data-category="science"],
+    .article-card[data-category="food"] {
+      display: block;
+    }
+
+    /* Add styles for article actions */
+    .article-actions {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s;
+    }
+
+    .read-more {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    .read-more:hover {
+      background: #2980b9;
+    }
+
+    /* Add translation buttons */
+    .translation-container {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .language-select {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #3498db;
+      background-color: white;
+      cursor: pointer;
+      width: 200px;
+    }
+
+    .translation-loading {
+      text-align: center;
+      margin: 10px 0;
+      display: none;
+    }
+
+    .translation-loading.active {
+      display: block;
+    }
+
+    .listen-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .listen-btn:hover {
+      background: #2980b9;
+    }
+
+    .listen-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* Navigation Button Styles */
+    .nav-btn {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">Blogy</a>
+        <nav class="nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="article.html" class="nav-link active">Articles</a>
+          <a href="magazine.html" class="nav-link">Magazines</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-title">
+    <div class="container">
+      <h1>Our Articles</h1>
+      <p>Discover our collection of premium articles</p>
+      <div style="margin-top: 1rem;">
+        <a href="magazine.html" class="back-to-magazines">Browse Magazines</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="technology">Technology</button>
+      <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+      <button class="filter-btn" data-filter="business">Business</button>
+      <button class="filter-btn" data-filter="science">Science</button>
+      <button class="filter-btn" data-filter="food">Food</button>
+    </div>
+
+    <!-- Article Grid -->
+    <div class="article-grid">
+      <!-- Technology Articles -->
+      <article class="article-card" data-category="technology" data-article-id="ai-revolution">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Technology">
+        </div>
+        <div class="article-content">
+          <h3>The AI Revolution: What's Next?</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sarah Johnson" class="author-image">
+            <span class="author">Sarah Johnson</span>
+            <span class="date">Mar 15, 2024</span>
+          </div>
+          <p class="article-excerpt">Artificial Intelligence is transforming our world at an unprecedented pace. This comprehensive analysis explores the current state of AI and its future implications...</p>
+          <div class="translation-container">
+            <select class="language-select">
+              <option value="">Select Language</option>
+              <option value="ar">العربية (Arabic)</option>
+              <option value="zh">中文 (Chinese)</option>
+              <option value="nl">Nederlands (Dutch)</option>
+              <option value="en">English</option>
+              <option value="fr">Français (French)</option>
+              <option value="de">Deutsch (German)</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="id">Bahasa Indonesia (Indonesian)</option>
+              <option value="it">Italiano (Italian)</option>
+              <option value="ja">日本語 (Japanese)</option>
+              <option value="ko">한국어 (Korean)</option>
+              <option value="pt">Português (Portuguese)</option>
+              <option value="ru">Русский (Russian)</option>
+              <option value="es">Español (Spanish)</option>
+              <option value="tr">Türkçe (Turkish)</option>
+              <option value="vi">Tiếng Việt (Vietnamese)</option>
+            </select>
+            <button class="listen-btn" onclick="listenToText(this.closest('.article-card'))">
+              <i class="bi bi-volume-up"></i> Listen
+            </button>
+          </div>
+          <div class="translation-loading" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Translating content...</p>
+          </div>
+          <div class="article-full-content" style="display: none;">
+            <h4>The AI Revolution: A Comprehensive Analysis</h4>
+            <p>Artificial Intelligence (AI) has emerged as one of the most transformative technologies of our time, revolutionizing industries and reshaping the way we live and work. This comprehensive analysis delves deep into the current state of AI and its far-reaching implications for the future.</p>
+
+            <h4>The Current State of AI Technology</h4>
+            <p>Today's AI systems are capable of remarkable feats that were once thought impossible. Machine learning algorithms can now:</p>
+            <ul>
+                <li>Process and understand natural language with human-like comprehension</li>
+                <li>Recognize and analyze complex patterns in vast datasets</li>
+                <li>Make predictions and decisions based on historical data</li>
+                <li>Learn and improve from experience without explicit programming</li>
+            </ul>
+
+            <h4>Industry Transformations</h4>
+            <p>The impact of AI across various sectors has been profound:</p>
+            <ul>
+                <li><strong>Healthcare:</strong> AI-powered diagnostic tools can detect diseases earlier and more accurately than ever before. Machine learning algorithms analyze medical images, predict patient outcomes, and assist in treatment planning.</li>
+                <li><strong>Finance:</strong> Automated trading systems, fraud detection, and risk assessment have become more sophisticated and efficient. AI algorithms can process millions of transactions in real-time, identifying patterns that humans might miss.</li>
+                <li><strong>Manufacturing:</strong> Smart factories leverage AI for predictive maintenance, quality control, and process optimization. Robots and automated systems work alongside humans, increasing productivity and safety.</li>
+                <li><strong>Customer Service:</strong> AI chatbots and virtual assistants provide 24/7 support, handling routine inquiries and freeing human agents for more complex tasks.</li>
+            </ul>
+
+            <h4>Ethical Considerations and Challenges</h4>
+            <p>As AI becomes more powerful, several critical issues demand attention:</p>
+            <ul>
+                <li><strong>Bias and Fairness:</strong> AI systems can perpetuate and amplify existing biases in training data, leading to unfair outcomes in hiring, lending, and criminal justice.</li>
+                <li><strong>Privacy Concerns:</strong> The vast amounts of data required for AI systems raise questions about data collection, storage, and usage.</li>
+                <li><strong>Job Displacement:</strong> Automation threatens certain jobs while creating new opportunities, requiring workforce adaptation and retraining.</li>
+                <li><strong>Transparency:</strong> The "black box" nature of some AI systems makes it difficult to understand how decisions are made, raising accountability concerns.</li>
+            </ul>
+
+            <h4>Future Developments and Opportunities</h4>
+            <p>The next wave of AI innovation promises even more transformative changes:</p>
+            <ul>
+                <li><strong>Advanced Neural Networks:</strong> More sophisticated architectures will enable better understanding of complex patterns and relationships.</li>
+                <li><strong>Quantum Computing Integration:</strong> Quantum AI could solve problems that are currently intractable for classical computers.</li>
+                <li><strong>Human-AI Collaboration:</strong> New interfaces and interaction models will enhance human capabilities rather than replace them.</li>
+                <li><strong>Ethical AI Frameworks:</strong> Development of standards and guidelines to ensure responsible AI deployment.</li>
+            </ul>
+
+            <h4>Preparing for the AI Future</h4>
+            <p>To thrive in an AI-driven world, individuals and organizations must:</p>
+            <ul>
+                <li>Develop AI literacy and understanding</li>
+                <li>Invest in continuous learning and skill development</li>
+                <li>Establish robust ethical guidelines and governance frameworks</li>
+                <li>Foster collaboration between humans and AI systems</li>
+            </ul>
+
+            <p>The future of AI holds both incredible opportunities and significant challenges. By approaching this technology thoughtfully and responsibly, we can harness its power to create a better future for all.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">AI</span>
+            <span class="article-tag">Technology</span>
+            <span class="article-tag">Future</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="technology" data-article-id="digital-transformation">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800" alt="Digital Transformation">
+        </div>
+        <div class="article-content">
+          <h3>Digital Transformation in 2024</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sarah Johnson" class="author-image">
+            <span class="author">Sarah Johnson</span>
+            <span class="date">Mar 14, 2024</span>
+          </div>
+          <p class="article-excerpt">The digital landscape continues to evolve rapidly. Learn about cloud computing, blockchain technology, and IoT innovations that are driving business transformation in the modern era.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Digital Transformation in 2024: A Comprehensive Guide</h4>
+            <p>The digital landscape continues to evolve at an unprecedented pace, reshaping how businesses operate and compete. This comprehensive guide explores the key trends and technologies driving digital transformation in 2024.</p>
+
+            <h4>Cloud Computing Evolution</h4>
+            <p>Cloud technology has become the foundation of digital transformation:</p>
+            <ul>
+                <li><strong>Hybrid Cloud Solutions:</strong> Organizations are increasingly adopting hybrid cloud architectures that combine public and private clouds for optimal flexibility and security.</li>
+                <li><strong>Serverless Computing:</strong> The rise of serverless architectures enables businesses to focus on code rather than infrastructure management.</li>
+                <li><strong>Edge Computing:</strong> Processing data closer to its source reduces latency and enables real-time decision-making.</li>
+                <li><strong>Cloud Security:</strong> Advanced security measures and compliance frameworks ensure data protection in cloud environments.</li>
+            </ul>
+
+            <h4>Blockchain Technology Applications</h4>
+            <p>Blockchain is transforming various industries beyond cryptocurrency:</p>
+            <ul>
+                <li><strong>Supply Chain Management:</strong> Transparent and immutable ledgers improve traceability and reduce fraud.</li>
+                <li><strong>Smart Contracts:</strong> Automated, self-executing contracts streamline business processes and reduce costs.</li>
+                <li><strong>Digital Identity:</strong> Secure and decentralized identity verification systems enhance privacy and security.</li>
+                <li><strong>Tokenization:</strong> Digital assets and fractional ownership create new investment opportunities.</li>
+            </ul>
+
+            <h4>IoT Innovations</h4>
+            <p>The Internet of Things continues to expand its reach:</p>
+            <ul>
+                <li><strong>Industrial IoT:</strong> Smart factories and predictive maintenance optimize manufacturing processes.</li>
+                <li><strong>Smart Cities:</strong> Connected infrastructure improves urban living and resource management.</li>
+                <li><strong>Healthcare IoT:</strong> Remote monitoring and wearable devices enhance patient care.</li>
+                <li><strong>Environmental Monitoring:</strong> IoT sensors track and analyze environmental data for sustainability initiatives.</li>
+            </ul>
+
+            <h4>Data Analytics and AI Integration</h4>
+            <p>Advanced analytics and AI are driving data-driven decision making:</p>
+            <ul>
+                <li><strong>Predictive Analytics:</strong> Machine learning models forecast trends and customer behavior.</li>
+                <li><strong>Natural Language Processing:</strong> AI-powered language understanding enables better customer interactions.</li>
+                <li><strong>Computer Vision:</strong> Image and video analysis automate quality control and security processes.</li>
+                <li><strong>Automated Decision Making:</strong> AI systems assist in complex business decisions and risk assessment.</li>
+            </ul>
+
+            <h4>Implementation Strategies</h4>
+            <p>Successful digital transformation requires careful planning and execution:</p>
+            <ul>
+                <li><strong>Change Management:</strong> Effective communication and training ensure smooth technology adoption.</li>
+                <li><strong>Agile Development:</strong> Iterative approaches enable rapid adaptation to changing requirements.</li>
+                <li><strong>Security First:</strong> Robust cybersecurity measures protect digital assets and customer data.</li>
+                <li><strong>Customer-Centric Approach:</strong> Technology implementation should enhance customer experience.</li>
+            </ul>
+
+            <h4>Future Outlook</h4>
+            <p>The digital transformation journey continues to evolve:</p>
+            <ul>
+                <li><strong>5G Integration:</strong> Faster connectivity enables new applications and services.</li>
+                <li><strong>Quantum Computing:</strong> Emerging quantum technologies promise revolutionary computing power.</li>
+                <li><strong>Extended Reality:</strong> AR/VR technologies transform training and customer experiences.</li>
+                <li><strong>Sustainable Technology:</strong> Green computing and energy-efficient solutions gain importance.</li>
+            </ul>
+
+            <p>Digital transformation is no longer optional but essential for business survival and growth. Organizations that embrace these technologies and adapt to the changing landscape will thrive in the digital age.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Digital</span>
+            <span class="article-tag">Business</span>
+            <span class="article-tag">Innovation</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="technology" data-article-id="cybersecurity">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800" alt="Cybersecurity">
+        </div>
+        <div class="article-content">
+          <h3>Cybersecurity in the Age of AI</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Mike Wilson" class="author-image">
+            <span class="author">Mike Wilson</span>
+            <span class="date">Mar 13, 2024</span>
+          </div>
+          <p class="article-excerpt">As AI becomes more sophisticated, so do cyber threats. Explore how artificial intelligence is being used both to protect and attack digital systems in today's connected world.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>AI in Cybersecurity:</h4>
+            <p>1. Threat Detection:</p>
+            <ul>
+              <li>Pattern recognition</li>
+              <li>Anomaly detection</li>
+              <li>Real-time monitoring</li>
+              <li>Predictive analysis</li>
+            </ul>
+            <p>2. Defense Mechanisms:</p>
+            <ul>
+              <li>Automated response systems</li>
+              <li>Behavioral analysis</li>
+              <li>Vulnerability assessment</li>
+              <li>Threat intelligence</li>
+            </ul>
+            <h4>Emerging Challenges:</h4>
+            <ul>
+              <li>AI-powered attacks</li>
+              <li>Deepfake threats</li>
+              <li>Social engineering</li>
+              <li>Supply chain vulnerabilities</li>
+            </ul>
+            <p>Understanding the dual nature of AI in cybersecurity is crucial for developing effective defense strategies in the digital age.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Security</span>
+            <span class="article-tag">AI</span>
+            <span class="article-tag">Technology</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="technology" data-article-id="future-tech">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800" alt="Future Technology">
+        </div>
+        <div class="article-content">
+          <h3>The Future of Technology</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Emma Davis" class="author-image">
+            <span class="author">Emma Davis</span>
+            <span class="date">Mar 12, 2024</span>
+          </div>
+          <p class="article-excerpt">From quantum computing to augmented reality, discover the emerging technologies that will shape our world in the coming decades and transform our daily lives.</p>
+          <div class="article-tags">
+            <span class="article-tag">Future</span>
+            <span class="article-tag">Innovation</span>
+            <span class="article-tag">Technology</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="technology" data-article-id="blockchain-future">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?w=800" alt="Blockchain Technology">
+        </div>
+        <div class="article-content">
+          <h3>Blockchain: Beyond Cryptocurrency</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1500648767791-0a1dd7228f2d?w=100" alt="David Brown" class="author-image">
+            <span class="author">David Brown</span>
+            <span class="date">Mar 3, 2024</span>
+          </div>
+          <p class="article-excerpt">Explore how blockchain technology is revolutionizing industries beyond finance, from supply chain management to digital identity verification.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Blockchain Applications:</h4>
+            <p>1. Supply Chain Management:</p>
+            <ul>
+              <li>Traceability</li>
+              <li>Transparency</li>
+              <li>Efficiency</li>
+            </ul>
+            <p>2. Digital Identity:</p>
+            <ul>
+              <li>KYC/KYB</li>
+              <li>Digital Certificates</li>
+              <li>Decentralized Identity</li>
+            </ul>
+            <p>3. Smart Contracts:</p>
+            <ul>
+              <li>Automated Agreements</li>
+              <li>Automated Execution</li>
+              <li>Cross-Chain Interoperability</li>
+            </ul>
+            <h4>Emerging Challenges:</h4>
+            <ul>
+              <li>Scalability</li>
+              <li>Regulatory Compliance</li>
+              <li>Security</li>
+            </ul>
+            <p>Blockchain technology is transforming industries beyond finance, offering new opportunities for innovation and efficiency.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Blockchain</span>
+            <span class="article-tag">Technology</span>
+            <span class="article-tag">Innovation</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="technology" data-article-id="metaverse-impact">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800" alt="Metaverse">
+        </div>
+        <div class="article-content">
+          <h3>The Metaverse: A New Digital Frontier</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Emma Davis" class="author-image">
+            <span class="author">Emma Davis</span>
+            <span class="date">Mar 2, 2024</span>
+          </div>
+          <p class="article-excerpt">Discover how the metaverse is creating new opportunities for social interaction, business, and entertainment in virtual spaces.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Metaverse Components:</h4>
+            <p>1. Virtual Reality:</p>
+            <ul>
+              <li>3D Environments</li>
+              <li>Immersive Experiences</li>
+              <li>Spatial Audio</li>
+            </ul>
+            <p>2. Augmented Reality:</p>
+            <ul>
+              <li>Overlay on Real World</li>
+              <li>Interactive Experiences</li>
+              <li>Geolocation</li>
+            </ul>
+            <p>3. Social Interaction:</p>
+            <ul>
+              <li>Virtual Communities</li>
+              <li>Social Networking</li>
+              <li>Multi-User Environments</li>
+            </ul>
+            <h4>Business Applications:</h4>
+            <ul>
+              <li>Retail</li>
+              <li>Education</li>
+              <li>Healthcare</li>
+            </ul>
+            <p>The metaverse is transforming industries, offering new opportunities for social interaction and business.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Metaverse</span>
+            <span class="article-tag">Virtual Reality</span>
+            <span class="article-tag">Future</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Lifestyle Articles -->
+      <article class="article-card" data-category="lifestyle" data-article-id="modern-living">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="Modern Living">
+        </div>
+        <div class="article-content">
+          <h3>Modern Living: Finding Balance</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="David Brown" class="author-image">
+            <span class="author">David Brown</span>
+            <span class="date">Mar 11, 2024</span>
+          </div>
+          <p class="article-excerpt">In today's fast-paced world, finding balance between work, personal life, and digital engagement is crucial. Learn practical strategies for managing modern life effectively.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Strategies for Balanced Living:</h4>
+            <p>1. Time Management:</p>
+            <ul>
+              <li>Prioritize tasks</li>
+              <li>Use productivity tools</li>
+              <li>Set clear goals</li>
+            </ul>
+            <p>2. Digital Detox:</p>
+            <ul>
+              <li>Limit screen time</li>
+              <li>Schedule tech-free periods</li>
+              <li>Practice mindfulness</li>
+            </ul>
+            <p>3. Social Interaction:</p>
+            <ul>
+              <li>Schedule regular breaks</li>
+              <li>Engage in hobbies</li>
+              <li>Connect with others</li>
+            </ul>
+            <h4>Benefits of Balanced Living:</h4>
+            <ul>
+              <li>Improved mental health</li>
+              <li>Increased productivity</li>
+              <li>Enhanced relationships</li>
+            </ul>
+            <p>Balanced living leads to a more fulfilling and productive life.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Lifestyle</span>
+            <span class="article-tag">Wellness</span>
+            <span class="article-tag">Balance</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="lifestyle" data-article-id="sustainable-fashion">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800" alt="Fashion Trends">
+        </div>
+        <div class="article-content">
+          <h3>Sustainable Fashion: The Future of Style</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=100" alt="Lisa Anderson" class="author-image">
+            <span class="author">Lisa Anderson</span>
+            <span class="date">Mar 10, 2024</span>
+          </div>
+          <p class="article-excerpt">The fashion industry is embracing sustainability. Discover how eco-friendly materials and ethical manufacturing practices are shaping the future of fashion.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Sustainable Materials:</h4>
+            <p>1. Organic Cotton</p>
+            <ul>
+              <li>Biodegradable</li>
+              <li>Reduces water usage</li>
+            </ul>
+            <p>2. Recycled Polyester:</p>
+            <ul>
+              <li>Reduces plastic waste</li>
+              <li>Improves fabric durability</li>
+            </ul>
+            <p>3. Upcycled Denim:</p>
+            <ul>
+              <li>Uses old jeans for new products</li>
+              <li>Reduces textile waste</li>
+            </ul>
+            <h4>Ethical Manufacturing:</h4>
+            <ul>
+              <li>Fair wages</li>
+              <li>Safe working conditions</li>
+              <li>No child labor</li>
+            </ul>
+            <p>Sustainable fashion promotes a more ethical and environmentally friendly approach to the fashion industry.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Fashion</span>
+            <span class="article-tag">Sustainability</span>
+            <span class="article-tag">Style</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="lifestyle" data-article-id="travel-trends">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800" alt="Travel Trends">
+        </div>
+        <div class="article-content">
+          <h3>Travel Trends 2024</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="John Smith" class="author-image">
+            <span class="author">John Smith</span>
+            <span class="date">Mar 9, 2024</span>
+          </div>
+          <p class="article-excerpt">From sustainable tourism to digital nomadism, explore how travel is evolving in the post-pandemic world and discover the latest trends in global exploration.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Sustainable Tourism:</h4>
+            <p>1. Eco-friendly accommodations</p>
+            <ul>
+              <li>Green hotels</li>
+              <li>Biodegradable products</li>
+            </ul>
+            <p>2. Community-based tourism:</p>
+            <ul>
+              <li>Support local economies</li>
+              <li>Cultural immersion</li>
+            </ul>
+            <p>3. Digital Nomadism:</p>
+            <ul>
+              <li>Remote work</li>
+              <li>Digital nomad communities</li>
+            </ul>
+            <h4>Emerging Trends:</h4>
+            <ul>
+              <li>Travel tech</li>
+              <li>Health and safety</li>
+              <li>Travel for mental health</li>
+            </ul>
+            <p>Travel trends are evolving, promoting sustainable and digital experiences.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Travel</span>
+            <span class="article-tag">Lifestyle</span>
+            <span class="article-tag">Trends</span>
+          </div>
+          <div class="article-actions">
+            <button class="action-btn read-more" onclick="showArticleDetails(this)">
+              <i class="bi bi-book"></i>
+              Read More
+            </button>
+            <button class="action-btn download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i>
+              Download
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="lifestyle" data-article-id="mindful-living">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800" alt="Mindful Living">
+        </div>
+        <div class="article-content">
+          <h3>The Art of Mindful Living</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sarah Johnson" class="author-image">
+            <span class="author">Sarah Johnson</span>
+            <span class="date">Mar 1, 2024</span>
+          </div>
+          <p class="article-excerpt">Learn practical mindfulness techniques and how to incorporate them into your daily routine for a more balanced and peaceful life.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Mindfulness Techniques:</h4>
+            <p>1. Meditation:</p>
+            <ul>
+              <li>Focus on the present</li>
+              <li>Reduce stress</li>
+            </ul>
+            <p>2. Breathing Exercises:</p>
+            <ul>
+              <li>Deep breathing</li>
+              <li>Mindfulness meditation</li>
+            </ul>
+            <p>3. Gratitude Practice:</p>
+            <ul>
+              <li>Focus on positive aspects</li>
+              <li>Boost mental health</li>
+            </ul>
+            <h4>Benefits of Mindful Living:</h4>
+            <ul>
+              <li>Reduced stress</li>
+              <li>Increased happiness</li>
+              <li>Improved relationships</li>
+            </ul>
+            <p>Mindful living promotes a more peaceful and fulfilling life.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Mindfulness</span>
+            <span class="article-tag">Wellness</span>
+            <span class="article-tag">Lifestyle</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('lifestyle', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="lifestyle" data-article-id="home-organization">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800" alt="Home Organization">
+        </div>
+        <div class="article-content">
+          <h3>Minimalist Home Organization</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=100" alt="Lisa Anderson" class="author-image">
+            <span class="author">Lisa Anderson</span>
+            <span class="date">Feb 29, 2024</span>
+          </div>
+          <p class="article-excerpt">Transform your living space with practical minimalist organization techniques that promote clarity and peace of mind.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Minimalist Principles:</h4>
+            <p>1. Only keep items you use or love</p>
+            <ul>
+              <li>Essential items</li>
+              <li>Quality over quantity</li>
+            </ul>
+            <p>2. Declutter regularly</p>
+            <ul>
+              <li>Tidy up daily</li>
+              <li>Use containers</li>
+            </ul>
+            <p>3. Create a system that works for you</p>
+            <ul>
+              <li>Use hooks and shelves</li>
+              <li>Label and categorize</li>
+            </ul>
+            <h4>Benefits of Minimalism:</h4>
+            <ul>
+              <li>Reduced stress</li>
+              <li>Increased productivity</li>
+              <li>Improved mental health</li>
+            </ul>
+            <p>Minimalist organization promotes a more peaceful and organized home.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Minimalism</span>
+            <span class="article-tag">Organization</span>
+            <span class="article-tag">Home</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('lifestyle', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Business Articles -->
+      <article class="article-card" data-category="business" data-article-id="business-strategy">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800" alt="Business Strategy">
+        </div>
+        <div class="article-content">
+          <h3>Future of Business Strategy</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sarah Johnson" class="author-image">
+            <span class="author">Sarah Johnson</span>
+            <span class="date">Mar 8, 2024</span>
+          </div>
+          <p class="article-excerpt">The business landscape is evolving rapidly. Learn about emerging business models, digital transformation strategies, and the role of data-driven decision making.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Emerging Business Models:</h4>
+            <p>1. Subscription-based models</p>
+            <ul>
+              <li>Recurring revenue</li>
+              <li>Customer retention</li>
+            </ul>
+            <p>2. Platform businesses:</p>
+            <ul>
+              <li>Network effects</li>
+              <li>Platform ecosystems</li>
+            </ul>
+            <p>3. D2C (Direct-to-Consumer):</p>
+            <ul>
+              <li>Reduced intermediaries</li>
+              <li>Direct customer relationships</li>
+            </ul>
+            <h4>Digital Transformation Strategies:</h4>
+            <ul>
+              <li>Cloud computing</li>
+              <li>Data analytics</li>
+              <li>Automation</li>
+            </ul>
+            <h4>Data-Driven Decision Making:</h4>
+            <ul>
+              <li>Collect and analyze data</li>
+              <li>Use data to inform decisions</li>
+              <li>Iterate and adapt</li>
+            </ul>
+            <p>The future of business strategy involves embracing digital technologies and leveraging data for competitive advantage.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Business</span>
+            <span class="article-tag">Strategy</span>
+            <span class="article-tag">Innovation</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('business', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="business" data-article-id="digital-entrepreneurship">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" alt="Entrepreneurship">
+        </div>
+        <div class="article-content">
+          <h3>The Rise of Digital Entrepreneurship</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Mike Wilson" class="author-image">
+            <span class="author">Mike Wilson</span>
+            <span class="date">Mar 7, 2024</span>
+          </div>
+          <p class="article-excerpt">Digital entrepreneurship is reshaping the business world. Discover how technology is enabling entrepreneurs to build global businesses from anywhere.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Digital Entrepreneurship Platforms:</h4>
+            <p>1. E-commerce platforms</p>
+            <ul>
+              <li>Amazon</li>
+              <li>eBay</li>
+              <li>Shopify</li>
+            </ul>
+            <p>2. Social media platforms:</p>
+            <ul>
+              <li>Instagram</li>
+              <li>TikTok</li>
+              <li>LinkedIn</li>
+            </ul>
+            <p>3. Crowdfunding platforms:</p>
+            <ul>
+              <li>Kickstarter</li>
+              <li>Indiegogo</li>
+              <li>GoFundMe</li>
+            </ul>
+            <h4>Benefits of Digital Entrepreneurship:</h4>
+            <ul>
+              <li>Global reach</li>
+              <li>Reduced barriers to entry</li>
+              <li>Cost-effective</li>
+            </ul>
+            <p>Digital entrepreneurship offers new opportunities for entrepreneurs to build global businesses from anywhere.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Entrepreneurship</span>
+            <span class="article-tag">Digital</span>
+            <span class="article-tag">Startup</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('business', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="business" data-article-id="remote-work">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" alt="Remote Work">
+        </div>
+        <div class="article-content">
+          <h3>The Future of Remote Work</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Mike Wilson" class="author-image">
+            <span class="author">Mike Wilson</span>
+            <span class="date">Feb 28, 2024</span>
+          </div>
+          <p class="article-excerpt">Explore how remote work is reshaping business operations and what it means for the future of workplace culture and productivity.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Remote Work Benefits:</h4>
+            <ul>
+              <li>Increased flexibility</li>
+              <li>Reduced commuting time</li>
+              <li>Improved work-life balance</li>
+            </ul>
+            <h4>Challenges of Remote Work:</h4>
+            <ul>
+              <li>Isolation</li>
+              <li>Maintaining productivity</li>
+              <li>Managing distractions</li>
+            </ul>
+            <h4>Future Trends:</h4>
+            <ul>
+              <li>Increased use of AI</li>
+              <li>Hybrid work models</li>
+              <li>Focus on mental health</li>
+            </ul>
+            <p>Remote work is reshaping the future of workplace culture and productivity.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Remote Work</span>
+            <span class="article-tag">Business</span>
+            <span class="article-tag">Future</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('business', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="business" data-article-id="sustainable-business">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="Sustainable Business">
+        </div>
+        <div class="article-content">
+          <h3>Building a Sustainable Business</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sarah Johnson" class="author-image">
+            <span class="author">Sarah Johnson</span>
+            <span class="date">Feb 27, 2024</span>
+          </div>
+          <p class="article-excerpt">Learn how to integrate sustainability into your business model while maintaining profitability and competitive advantage.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Sustainable Business Practices:</h4>
+            <p>1. Green supply chain</p>
+            <ul>
+              <li>Reduce carbon footprint</li>
+              <li>Support sustainable suppliers</li>
+            </ul>
+            <p>2. Customer-centric approach:</p>
+            <ul>
+              <li>Sustainable products</li>
+              <li>Transparent supply chain</li>
+            </ul>
+            <p>3. Employee well-being:</p>
+            <ul>
+              <li>Sustainable workplace</li>
+              <li>Employee engagement</li>
+            </ul>
+            <h4>Benefits of Sustainable Business:</h4>
+            <ul>
+              <li>Increased customer loyalty</li>
+              <li>Reduced operational costs</li>
+              <li>Improved brand reputation</li>
+            </ul>
+            <p>Integrating sustainability into your business model promotes long-term profitability and competitive advantage.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Sustainability</span>
+            <span class="article-tag">Business</span>
+            <span class="article-tag">Strategy</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('business', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Science Articles -->
+      <article class="article-card" data-category="science" data-article-id="space-exploration">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" alt="Space Exploration">
+        </div>
+        <div class="article-content">
+          <h3>New Frontiers in Space</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Emma Davis" class="author-image">
+            <span class="author">Emma Davis</span>
+            <span class="date">Mar 6, 2024</span>
+          </div>
+          <p class="article-excerpt">Space exploration enters a new era as private companies join national space agencies. Explore recent breakthroughs and upcoming missions in space technology.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Recent Breakthroughs:</h4>
+            <p>1. SpaceX Starship</p>
+            <ul>
+              <li>Private spacecraft</li>
+              <li>Mars colonization</li>
+            </ul>
+            <p>2. NASA Artemis</p>
+            <ul>
+              <li>Moon landing</li>
+              <li>Human exploration</li>
+            </ul>
+            <p>3. Space Tourism:</p>
+            <ul>
+              <li>Virgin Galactic</li>
+              <li>SpaceX Crew-2</li>
+            </ul>
+            <h4>Upcoming Missions:</h4>
+            <ul>
+              <li>NASA Artemis III</li>
+              <li>SpaceX Starship</li>
+              <li>Private lunar missions</li>
+            </ul>
+            <p>Space exploration is entering a new era, with private companies and national agencies working together to push the boundaries of human space exploration.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Space</span>
+            <span class="article-tag">Science</span>
+            <span class="article-tag">Exploration</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('science', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="science" data-article-id="climate-science">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800" alt="Climate Science">
+        </div>
+        <div class="article-content">
+          <h3>Climate Science Breakthroughs</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Emma Davis" class="author-image">
+            <span class="author">Emma Davis</span>
+            <span class="date">Feb 26, 2024</span>
+          </div>
+          <p class="article-excerpt">Discover the latest scientific breakthroughs in climate research and their implications for our planet's future.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Climate Science Highlights:</h4>
+            <p>1. Ice Sheet Melting:</p>
+            <ul>
+              <li>Antarctica and Greenland</li>
+              <li>Sea Level Rise</li>
+            </ul>
+            <p>2. Ocean Acidification:</p>
+            <ul>
+              <li>Coral Reefs</li>
+              <li>Shellfish</li>
+            </ul>
+            <p>3. Extreme Weather:</p>
+            <ul>
+              <li>Heatwaves</li>
+              <li>Droughts</li>
+            </ul>
+            <h4>Implications:</h4>
+            <ul>
+              <li>Global Impact</li>
+              <li>Human Adaptation</li>
+              <li>International Cooperation</li>
+            </ul>
+            <p>Climate science is providing critical insights into our planet's future.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Climate</span>
+            <span class="article-tag">Science</span>
+            <span class="article-tag">Environment</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('science', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="science" data-article-id="medical-advances">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800" alt="Medical Advances">
+        </div>
+        <div class="article-content">
+          <h3>Revolutionary Medical Advances</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="John Smith" class="author-image">
+            <span class="author">John Smith</span>
+            <span class="date">Feb 25, 2024</span>
+          </div>
+          <p class="article-excerpt">Explore groundbreaking medical innovations that are transforming healthcare and improving patient outcomes worldwide.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Recent Advances:</h4>
+            <p>1. Gene Editing:</p>
+            <ul>
+              <li>CRISPR technology</li>
+              <li>Genetic disorders</li>
+            </ul>
+            <p>2. Artificial Organs:</p>
+            <ul>
+              <li>3D printing</li>
+              <li>Organ transplant</li>
+            </ul>
+            <p>3. Precision Medicine:</p>
+            <ul>
+              <li>Personalized treatment</li>
+              <li>Genomic analysis</li>
+            </ul>
+            <h4>Implications:</h4>
+            <ul>
+              <li>Increased life expectancy</li>
+              <li>Improved patient outcomes</li>
+              <li>Cost-effective healthcare</li>
+            </ul>
+            <p>Medical advances are transforming healthcare and improving patient outcomes worldwide.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Medicine</span>
+            <span class="article-tag">Science</span>
+            <span class="article-tag">Health</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('science', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Food Articles -->
+      <article class="article-card" data-category="food" data-article-id="culinary-trends">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800" alt="Culinary Trends">
+        </div>
+        <div class="article-content">
+          <h3>Culinary Trends 2024</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="David Brown" class="author-image">
+            <span class="author">David Brown</span>
+            <span class="date">Mar 5, 2024</span>
+          </div>
+          <p class="article-excerpt">Discover the latest trends in the culinary world, from sustainable cooking practices to innovative fusion cuisines that are shaping the future of dining.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Sustainable Cooking Practices:</h4>
+            <p>1. Plant-based diets:</p>
+            <ul>
+              <li>Reduced carbon footprint</li>
+              <li>Improved health</li>
+            </ul>
+            <p>2. Zero waste cooking:</p>
+            <ul>
+              <li>Reduced food waste</li>
+              <li>Improved efficiency</li>
+            </ul>
+            <p>3. Microgreens:</p>
+            <ul>
+              <li>Nutrient-dense</li>
+              <li>Sustainable</li>
+            </ul>
+            <h4>Innovative Fusion Cuisines:</h4>
+            <ul>
+              <li>Global cuisines</li>
+              <li>Innovative combinations</li>
+              <li>Cultural exchange</li>
+            </ul>
+            <p>Culinary trends are shaping the future of dining, promoting sustainability and cultural exchange.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Food</span>
+            <span class="article-tag">Culinary</span>
+            <span class="article-tag">Trends</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('food', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="food" data-article-id="plant-based">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800" alt="Plant Based">
+        </div>
+        <div class="article-content">
+          <h3>The Rise of Plant-Based Cuisine</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="David Brown" class="author-image">
+            <span class="author">David Brown</span>
+            <span class="date">Feb 24, 2024</span>
+          </div>
+          <p class="article-excerpt">Discover how plant-based cooking is revolutionizing the culinary world with innovative recipes and sustainable practices.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Benefits of Plant-Based Cuisine:</h4>
+            <ul>
+              <li>Reduced environmental impact</li>
+              <li>Improved health</li>
+              <li>Increased creativity</li>
+            </ul>
+            <h4>Innovative Recipes:</h4>
+            <ul>
+              <li>Plant-based proteins</li>
+              <li>Improved taste</li>
+              <li>Creative combinations</li>
+            </ul>
+            <h4>Sustainable Practices:</h4>
+            <ul>
+              <li>Reduced food waste</li>
+              <li>Support for sustainable agriculture</li>
+            </ul>
+            <p>Plant-based cuisine is revolutionizing the culinary world, promoting sustainability and improved health.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Plant-Based</span>
+            <span class="article-tag">Food</span>
+            <span class="article-tag">Trends</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('food', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card" data-category="food" data-article-id="global-cuisine">
+        <button class="favorite-btn" onclick="toggleFavorite(this)">
+          <i class="bi bi-heart"></i>
+        </button>
+        <div class="article-image">
+          <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=800" alt="Global Cuisine">
+        </div>
+        <div class="article-content">
+          <h3>Global Cuisine Fusion</h3>
+          <div class="article-meta">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100" alt="John Smith" class="author-image">
+            <span class="author">John Smith</span>
+            <span class="date">Feb 23, 2024</span>
+          </div>
+          <p class="article-excerpt">Explore the exciting world of fusion cuisine where traditional recipes meet modern culinary innovation.</p>
+          <div class="article-full-content" style="display: none;">
+            <h4>Fusion Cuisine Highlights:</h4>
+            <p>1. Global Ingredients:</p>
+            <ul>
+              <li>Tomatoes from Peru</li>
+              <li>Spices from India</li>
+            </ul>
+            <p>2. Cultural Exchange:</p>
+            <ul>
+              <li>Influence of Mexican cuisine</li>
+              <li>Adaptation of traditional recipes</li>
+            </ul>
+            <p>3. Innovative Combinations:</p>
+            <ul>
+              <li>Taco rice</li>
+              <li>Pad Thai</li>
+            </ul>
+            <h4>Benefits of Fusion Cuisine:</h4>
+            <ul>
+              <li>Increased diversity</li>
+              <li>Improved taste</li>
+              <li>Support for global cuisine</li>
+            </ul>
+            <p>Fusion cuisine is promoting a more diverse and innovative approach to the culinary world.</p>
+          </div>
+          <div class="article-tags">
+            <span class="article-tag">Fusion</span>
+            <span class="article-tag">Food</span>
+            <span class="article-tag">Culture</span>
+          </div>
+          <div class="article-actions">
+            <button class="read-more">Read More</button>
+            <button class="download-btn" onclick="downloadArticle(this)">
+              <i class="bi bi-file-pdf"></i> Download
+            </button>
+            <button class="nav-btn" onclick="navigateToCategory('food', 'magazine.html')">
+              <i class="bi bi-book"></i> View in Magazines
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Hidden PDF Content -->
+  <div id="pdf-content" class="pdf-content">
+    <div class="pdf-header">
+      <h1>Our Articles</h1>
+      <p>Generated on: <span id="generation-date"></span></p>
+    </div>
+    <div id="pdf-articles-list">
+      <!-- PDF content will be generated here -->
+    </div>
+  </div>
+
+  <!-- Add html2pdf library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Blogy</h3>
+          <p>Your source for premium articles and digital content.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="article.html">Articles</a></li>
+            <li><a href="magazine.html">Magazines</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul class="footer-links">
+            <li>Email: info@blogy.com</li>
+            <li>Phone: (123) 456-7890</li>
+            <li>Address: 123 Magazine St, City</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Article Modal -->
+  <div id="articleModal" class="article-modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta">
+          <div class="article-author">
+            <img id="modalAuthorImage" src="" alt="Author" class="author-avatar">
+            <span id="modalAuthor"></span>
+          </div>
+          <span id="modalDate" class="article-date"></span>
+        </div>
+      </div>
+      <img id="modalImage" src="" alt="Article Image" class="modal-image">
+      <div class="modal-body" id="modalContent"></div>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+
+  <!-- Add category system -->
+  <script src="category.js"></script>
+
+  <script>
+    // Wait for the DOM to be fully loaded
+    window.addEventListener('load', function() {
+      console.log('Page loaded, initializing...'); // Debug log
+
+      // Get all necessary elements
+      const articleCards = document.querySelectorAll('.article-card');
+      const readMoreButtons = document.querySelectorAll('.read-more');
+
+      console.log('Found elements:', { // Debug log
+        articleCards: articleCards.length,
+        readMoreButtons: readMoreButtons.length
+      });
+
+      // Add click event listeners to read more buttons
+      readMoreButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault(); // Prevent default button behavior
+          console.log('Read More button clicked'); // Debug log
+          const articleContent = this.closest('.article-content');
+          const fullContent = articleContent.querySelector('.article-full-content');
+          
+          if (!fullContent) {
+            console.log('Creating full content section'); // Debug log
+            // Create full content section if it doesn't exist
+            const newFullContent = document.createElement('div');
+            newFullContent.className = 'article-full-content';
+            newFullContent.style.display = 'none';
+            
+            // Add more detailed content
+            newFullContent.innerHTML = `
+              <p>Artificial Intelligence (AI) has emerged as one of the most transformative technologies of our time, revolutionizing industries and reshaping the way we live and work. This comprehensive analysis delves deep into the current state of AI and its far-reaching implications for the future.</p>
+
+              <h4>The Current State of AI Technology</h4>
+              <p>Today's AI systems are capable of remarkable feats that were once thought impossible. Machine learning algorithms can now:</p>
+              <ul>
+                <li>Process and understand natural language with human-like comprehension</li>
+                <li>Recognize and analyze complex patterns in vast datasets</li>
+                <li>Make predictions and decisions based on historical data</li>
+                <li>Learn and improve from experience without explicit programming</li>
+              </ul>
+
+              <h4>Industry Transformations</h4>
+              <p>The impact of AI across various sectors has been profound:</p>
+              <ul>
+                <li><strong>Healthcare:</strong> AI-powered diagnostic tools can detect diseases earlier and more accurately than ever before. Machine learning algorithms analyze medical images, predict patient outcomes, and assist in treatment planning.</li>
+                <li><strong>Finance:</strong> Automated trading systems, fraud detection, and risk assessment have become more sophisticated and efficient. AI algorithms can process millions of transactions in real-time, identifying patterns that humans might miss.</li>
+                <li><strong>Manufacturing:</strong> Smart factories leverage AI for predictive maintenance, quality control, and process optimization. Robots and automated systems work alongside humans, increasing productivity and safety.</li>
+                <li><strong>Customer Service:</strong> AI chatbots and virtual assistants provide 24/7 support, handling routine inquiries and freeing human agents for more complex tasks.</li>
+              </ul>
+
+              <h4>Ethical Considerations and Challenges</h4>
+              <p>As AI becomes more powerful, several critical issues demand attention:</p>
+              <ul>
+                <li><strong>Bias and Fairness:</strong> AI systems can perpetuate and amplify existing biases in training data, leading to unfair outcomes in hiring, lending, and criminal justice.</li>
+                <li><strong>Privacy Concerns:</strong> The vast amounts of data required for AI systems raise questions about data collection, storage, and usage.</li>
+                <li><strong>Job Displacement:</strong> Automation threatens certain jobs while creating new opportunities, requiring workforce adaptation and retraining.</li>
+                <li><strong>Transparency:</strong> The "black box" nature of some AI systems makes it difficult to understand how decisions are made, raising accountability concerns.</li>
+              </ul>
+
+              <h4>Future Developments and Opportunities</h4>
+              <p>The next wave of AI innovation promises even more transformative changes:</p>
+              <ul>
+                <li><strong>Advanced Neural Networks:</strong> More sophisticated architectures will enable better understanding of complex patterns and relationships.</li>
+                <li><strong>Quantum Computing Integration:</strong> Quantum AI could solve problems that are currently intractable for classical computers.</li>
+                <li><strong>Human-AI Collaboration:</strong> New interfaces and interaction models will enhance human capabilities rather than replace them.</li>
+                <li><strong>Ethical AI Frameworks:</strong> Development of standards and guidelines to ensure responsible AI deployment.</li>
+              </ul>
+
+              <h4>Preparing for the AI Future</h4>
+              <p>To thrive in an AI-driven world, individuals and organizations must:</p>
+              <ul>
+                <li>Develop AI literacy and understanding</li>
+                <li>Invest in continuous learning and skill development</li>
+                <li>Establish robust ethical guidelines and governance frameworks</li>
+                <li>Foster collaboration between humans and AI systems</li>
+              </ul>
+
+              <p>The future of AI holds both incredible opportunities and significant challenges. By approaching this technology thoughtfully and responsibly, we can harness its power to create a better future for all.</p>
+            `;
+            
+            // Insert the new content before the tags section
+            const tagsSection = articleContent.querySelector('.article-tags');
+            articleContent.insertBefore(newFullContent, tagsSection);
+            
+            // Update the fullContent reference
+            fullContent = newFullContent;
+          }
+          
+          const isExpanded = fullContent.style.display === 'block';
+          
+          // Toggle content visibility
+          fullContent.style.display = isExpanded ? 'none' : 'block';
+          
+          // Update button text and style
+          this.textContent = isExpanded ? 'Read More' : 'Show Less';
+          this.classList.toggle('expanded');
+        });
+      });
+    });
+
+    function toggleFavorite(button) {
+      button.classList.toggle('active');
+      const icon = button.querySelector('i');
+      const article = button.closest('.article-card');
+      const articleId = article.getAttribute('data-article-id');
+      const articleTitle = article.querySelector('h3').textContent;
+      const articleImage = article.querySelector('.article-image img').src;
+      const articleDate = article.querySelector('.date').textContent;
+      const articleAuthor = article.querySelector('.author').textContent;
+
+      if (button.classList.contains('active')) {
+        icon.classList.remove('bi-heart');
+        icon.classList.add('bi-heart-fill');
+        
+        // Store the favorited article in localStorage
+        const favoriteArticle = {
+          id: articleId,
+          title: articleTitle,
+          image: articleImage,
+          date: articleDate,
+          author: articleAuthor
+        };
+        
+        // Get existing favorites or initialize empty array
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        favorites.push(favoriteArticle);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        
+        // Redirect to favorites page
+        window.location.href = 'favorites.html';
+      } else {
+        icon.classList.remove('bi-heart-fill');
+        icon.classList.add('bi-heart');
+        
+        // Remove from favorites
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        favorites = favorites.filter(art => art.id !== articleId);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+      }
+    }
+
+    function downloadArticle(button) {
+      // Get the article card
+      const article = button.closest('.article-card');
+      
+      // Get all the necessary content
+      const title = article.querySelector('h3').textContent;
+      const excerpt = article.querySelector('.article-excerpt').textContent;
+      const category = article.getAttribute('data-category');
+      const image = article.querySelector('.article-image img').src;
+      const author = article.querySelector('.author').textContent;
+      const date = article.querySelector('.date').textContent;
+      
+      // Get full content if it exists
+      let fullContent = '';
+      const fullContentElement = article.querySelector('.article-full-content');
+      if (fullContentElement) {
+        fullContent = fullContentElement.innerHTML;
+      }
+      
+      // Create a container for the PDF content
+      const container = document.createElement('div');
+      container.style.padding = '20px';
+      container.style.backgroundColor = 'white';
+      container.style.width = '800px';
+      container.style.margin = '0 auto';
+      container.style.fontFamily = 'Arial, sans-serif';
+      
+      // Add the content to the container
+      container.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px;">
+          <img src="${image}" style="max-width: 300px; height: auto; margin-bottom: 20px;">
+          <h1 style="color: #2c3e50; margin-bottom: 20px; font-size: 24px;">${title}</h1>
+          <div style="color: #666; margin-bottom: 30px;">
+            <p style="margin: 5px 0;">Author: ${author}</p>
+            <p style="margin: 5px 0;">Date: ${date}</p>
+            <p style="margin: 5px 0;">Category: ${category.charAt(0).toUpperCase() + category.slice(1)}</p>
+          </div>
+        </div>
+        <div style="line-height: 1.6; color: #333;">
+          <h3 style="color: #2c3e50; margin-bottom: 15px; font-size: 20px;">Summary</h3>
+          <p style="margin-bottom: 20px; font-size: 16px;">${excerpt}</p>
+          ${fullContent ? `
+            <h3 style="color: #2c3e50; margin: 30px 0 15px; font-size: 20px;">Full Content</h3>
+            <div style="margin-bottom: 20px; font-size: 16px;">${fullContent}</div>
+          ` : ''}
+        </div>
+      `;
+      
+      // Add the container to the document temporarily
+      document.body.appendChild(container);
+      
+      // Configure PDF options
+      const options = {
+        margin: 10,
+        filename: `${title.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: true,
+          onclone: function(clonedDoc) {
+            // Ensure all content is visible in the cloned document
+            const clonedContainer = clonedDoc.querySelector('div');
+            if (clonedContainer) {
+              clonedContainer.style.display = 'block';
+              clonedContainer.style.visibility = 'visible';
+            }
+          }
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait'
+        }
+      };
+      
+      // Generate PDF
+      html2pdf()
+        .set(options)
+        .from(container)
+        .save()
+        .then(() => {
+          // Remove the temporary container
+          document.body.removeChild(container);
+        })
+        .catch(err => {
+          console.error('Error generating PDF:', err);
+          alert('There was an error generating the PDF. Please try again.');
+          // Clean up in case of error
+          if (document.body.contains(container)) {
+            document.body.removeChild(container);
+          }
+        });
+    }
+
+    // Add favorite and download buttons to all article cards
+  </script>
+
+  <script>
+  // Add Google Translate API
+  function loadGoogleTranslateScript() {
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.head.appendChild(script);
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'ar,zh,nl,en,fr,de,hi,id,it,ja,ko,pt,ru,es,tr,vi',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function changeLanguage(langCode) {
+    const loadingDiv = document.querySelector('.translation-loading');
+    loadingDiv.classList.add('active');
+
+    try {
+      // Get the Google Translate select element
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+      }
+
+      // Update button styles
+      document.querySelectorAll('.translate-btn').forEach(btn => {
+        btn.style.background = '#3498db';
+      });
+      event.target.style.background = '#2980b9';
+
+    } catch (error) {
+      console.error('Translation error:', error);
+      alert('There was an error changing the language. Please try again.');
+    } finally {
+      loadingDiv.classList.remove('active');
+    }
+  }
+
+  // Load Google Translate script when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    loadGoogleTranslateScript();
+    
+    // Initialize translation buttons
+    const buttons = document.querySelectorAll('.translate-btn');
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+        buttons.forEach(btn => btn.style.background = '#3498db');
+        this.style.background = '#2980b9';
+      });
+    });
+  });
+  </script>
+
+  <script>
+    // ... existing code ...
+
+    // Add translation functionality to each article
+    function addTranslationToArticle(articleCard) {
+      const articleContent = articleCard.querySelector('.article-content');
+      const title = articleContent.querySelector('h3');
+      const description = articleCard.querySelector('.article-description');
+      
+      // Create translation container
+      const translationContainer = document.createElement('div');
+      translationContainer.className = 'translation-container';
+      
+      // Create select element for languages
+      const select = document.createElement('select');
+      select.className = 'language-select';
+      
+      // Add default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.textContent = 'Select Language';
+      select.appendChild(defaultOption);
+      
+      // Define supported languages
+      const languages = [
+        { code: 'ar', name: 'Arabic' },
+        { code: 'zh', name: 'Chinese' },
+        { code: 'nl', name: 'Dutch' },
+        { code: 'en', name: 'English' },
+        { code: 'fr', name: 'French' },
+        { code: 'de', name: 'German' },
+        { code: 'hi', name: 'Hindi' },
+        { code: 'id', name: 'Indonesian' },
+        { code: 'it', name: 'Italian' },
+        { code: 'ja', name: 'Japanese' },
+        { code: 'ko', name: 'Korean' },
+        { code: 'pt', name: 'Portuguese' },
+        { code: 'ru', name: 'Russian' },
+        { code: 'es', name: 'Spanish' },
+        { code: 'tr', name: 'Turkish' },
+        { code: 'vi', name: 'Vietnamese' }
+      ];
+      
+      // Add language options
+      languages.forEach(lang => {
+        const option = document.createElement('option');
+        option.value = lang.code;
+        option.textContent = lang.name;
+        select.appendChild(option);
+      });
+      
+      // Create listen button
+      const listenBtn = document.createElement('button');
+      listenBtn.className = 'listen-btn';
+      listenBtn.innerHTML = '<i class="bi bi-volume-up"></i> Listen';
+      listenBtn.onclick = () => listenToText(articleCard);
+      
+      // Add change event listener
+      select.addEventListener('change', () => {
+        if (select.value) {
+          translateArticle(articleCard, select.value);
+        }
+      });
+      
+      // Add select and listen button to container
+      translationContainer.appendChild(select);
+      translationContainer.appendChild(listenBtn);
+      
+      // Add loading indicator
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'translation-loading';
+      loadingDiv.innerHTML = `
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Translating content...</p>
+      `;
+      translationContainer.appendChild(loadingDiv);
+      
+      // Add container to article
+      articleContent.appendChild(translationContainer);
+    }
+    
+    function listenToText(articleCard) {
+      const title = articleCard.querySelector('h3').textContent;
+      const excerpt = articleCard.querySelector('.article-excerpt').textContent;
+      const fullContent = articleCard.querySelector('.article-full-content');
+      const selectedLanguage = articleCard.querySelector('.language-select').value || 'en';
+      
+      // Get the text to speak
+      let textToSpeak = `${title}. ${excerpt}`;
+      if (fullContent && fullContent.style.display === 'block') {
+        textToSpeak += fullContent.textContent;
+      }
+      
+      // Create speech synthesis utterance
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = selectedLanguage;
+      
+      // Get available voices for the selected language
+      const voices = speechSynthesis.getVoices();
+      const voice = voices.find(v => v.lang.startsWith(selectedLanguage)) || voices[0];
+      
+      if (voice) {
+        utterance.voice = voice;
+      }
+      
+      // Speak the text
+      speechSynthesis.speak(utterance);
+    }
+    
+    function translateArticle(articleCard, langCode) {
+      const loadingDiv = articleCard.querySelector('.translation-loading');
+      loadingDiv.style.display = 'block';
+      
+      // Get content to translate
+      const title = articleCard.querySelector('h3');
+      const excerpt = articleCard.querySelector('.article-excerpt');
+      const fullContent = articleCard.querySelector('.article-full-content');
+      
+      // Store original content if not already stored
+      if (!title.dataset.originalText) {
+        title.dataset.originalText = title.textContent;
+        excerpt.dataset.originalText = excerpt.textContent;
+        if (fullContent) {
+          fullContent.dataset.originalText = fullContent.innerHTML;
+        }
+      }
+      
+      // If English is selected, restore original content
+      if (langCode === 'en') {
+        title.textContent = title.dataset.originalText;
+        excerpt.textContent = excerpt.dataset.originalText;
+        if (fullContent) {
+          fullContent.innerHTML = fullContent.dataset.originalText;
+        }
+        loadingDiv.style.display = 'none';
+        return;
+      }
+      
+      // Function to translate text using Google Translate API
+      function translateText(text, targetLang) {
+        return new Promise((resolve, reject) => {
+          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+          
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              const translatedText = data[0].map(item => item[0]).join('');
+              resolve(translatedText);
+            })
+            .catch(error => {
+              console.error('Translation error:', error);
+              reject(text); // Return original text if translation fails
+            });
+        });
+      }
+      
+      // Translate title, excerpt, and full content if visible
+      const translationPromises = [
+        translateText(title.dataset.originalText, langCode),
+        translateText(excerpt.dataset.originalText, langCode)
+      ];
+      
+      if (fullContent && fullContent.style.display === 'block') {
+        translationPromises.push(translateText(fullContent.dataset.originalText, langCode));
+      }
+      
+      Promise.all(translationPromises)
+        .then(([translatedTitle, translatedExcerpt, translatedFullContent]) => {
+          title.textContent = translatedTitle;
+          excerpt.textContent = translatedExcerpt;
+          if (fullContent && translatedFullContent) {
+            fullContent.innerHTML = translatedFullContent;
+          }
+        })
+        .catch(error => {
+          console.error('Translation failed:', error);
+        })
+        .finally(() => {
+          loadingDiv.style.display = 'none';
+        });
+    }
+    
+    // Initialize translation for all articles
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add translation functionality to each article
+      document.querySelectorAll('.article-card').forEach(addTranslationToArticle);
+      
+      // Load voices for speech synthesis
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = () => {
+          // Voices are loaded
+        };
+      }
+    });
+  </script>
+
+  <script>
+    function downloadAsPDF() {
+      const articleCards = document.querySelectorAll('.article-card');
+      const pdfContent = document.getElementById('pdf-content');
+      const pdfArticlesList = document.getElementById('pdf-articles-list');
+      const generationDate = document.getElementById('generation-date');
+
+      // Set generation date
+      generationDate.textContent = new Date().toLocaleDateString();
+
+      // Generate PDF content
+      const pdfHTML = Array.from(articleCards).map(card => {
+        const title = card.querySelector('.article-title').textContent;
+        const description = card.querySelector('.article-description').textContent;
+        const category = card.getAttribute('data-category');
+        
+        return `
+          <div class="pdf-article-item">
+            <h3 class="pdf-article-title">${title}</h3>
+            <p class="pdf-article-description">${description}</p>
+            <p>Category: ${category.charAt(0).toUpperCase() + category.slice(1)}</p>
+          </div>
+        `;
+      }).join('');
+
+      pdfArticlesList.innerHTML = pdfHTML;
+
+      // Configure PDF options
+      const opt = {
+        margin: 1,
+        filename: 'articles-catalog.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      // Generate and download PDF
+      html2pdf().set(opt).from(pdfContent).save();
+    }
+  </script>
+
+  <script>
+    function showArticleDetails(button) {
+        const article = button.closest('.article-card');
+        const articleId = article.getAttribute('data-article-id');
+        const category = article.getAttribute('data-category');
+        
+        // Get article data
+        const articleData = {
+            id: articleId,
+            title: article.querySelector('h3').textContent,
+            author: article.querySelector('.author').textContent,
+            authorImage: article.querySelector('.author-image').src,
+            date: article.querySelector('.date').textContent,
+            image: article.querySelector('.article-image img').src,
+            content: article.querySelector('.article-full-content')?.innerHTML || article.querySelector('.article-excerpt').textContent,
+            tags: Array.from(article.querySelectorAll('.article-tag')).map(tag => tag.textContent),
+            category: category
+        };
+        
+        // Store article data in localStorage
+        localStorage.setItem('currentArticle', JSON.stringify(articleData));
+        
+        // Redirect to blog details page
+        window.location.href = `blog-details.html?id=${articleId}`;
+    }
+  </script>
+</body>
+</html> 

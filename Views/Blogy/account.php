@@ -1,0 +1,493 @@
+<?php
+require_once "../../Models/User.php";
+require_once "../../Models/EndUser.php";
+require_once "../../Controllers/UserController.php";
+require_once "../../Controllers/Database.php";
+    session_start();
+if(!isset($_SESSION['user']))
+{
+    header("Location: login.php");
+}
+
+
+$user = $_SESSION['user'];
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>My Account - Blogy Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .account-section {
+      padding: 2rem 0;
+    }
+    .profile-header {
+      background: var(--light-background);
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .profile-image-container {
+      position: relative;
+      display: inline-block;
+    }
+    .profile-image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      text-align: center;
+      padding: 5px;
+      border-bottom-left-radius: 75px;
+      border-bottom-right-radius: 75px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .profile-image-container:hover .profile-image-overlay {
+      opacity: 1;
+    }
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .account-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .account-card h3 {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light-background);
+    }
+    .info-item {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    .info-label {
+      width: 150px;
+      font-weight: 500;
+      color: var(--secondary-color);
+    }
+    .info-value {
+      flex: 1;
+    }
+    .edit-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+    .preview-image {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 50%;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="account-page">
+
+  <header id="header" class="header position-relative">
+    <div class="container-fluid container-xl position-relative">
+      <div class="top-row d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-end">
+          <h1 class="sitename">Blogy</h1><span>.</span>
+        </a>
+
+        <div class="d-flex align-items-center">
+          <div class="social-links">
+            <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="https://x.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="logout.php" class="logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </div>
+
+          <form class="search-form ms-4" method="get" action="search-results.php">
+            <input type="text" placeholder="Search..." class="form-control">
+            <button type="submit" class="btn"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container d-flex justify-content-center position-relative">
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="subscription.php">Subscribtion</a></li>
+            <li><a href="blog-details.php">Blog Details</a></li>
+            <li><a href="author-profile.php">Author Profile</a></li>
+            <li><a href="favorites.php">Favourite</a></li>
+            <li class="dropdown"><a href="#"><span>Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="about.php">About</a></li>
+                <li><a href="blog-details.php">Blog Details</a></li>
+                <li><a href="search-results.php">Search Results</a></li>
+                <li><a href="account.php" class="active">MY Acoount</a></li>
+
+                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="magazine.php">Magazine</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="report.php">Report System </a></li>
+                    <li><a href="rate-system.php">Rate System</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active current">My Account</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="title-wrapper">
+        <h1>My Account</h1>
+        <p>Manage your account settings and view your information</p>
+      </div>
+    </div>
+
+    <section class="account-section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <!-- Profile Header -->
+        <div class="profile-header position-relative">
+          <div class="row justify-content-center">
+            <div class="col-md-4 text-center">
+              <img src="<?php echo $user->profilePicture; ?>" alt="Profile Image" class="profile-image" id="profileImage">
+              <h2 class="profile-name mt-3"><?php echo $user->firstName . ' ' . $user->lastName; ?></h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <!-- Personal Information -->
+          <div class="col-lg-6">
+            <div class="account-card">
+              <h3 class="text-center"><i class="bi bi-person-circle me-2"></i> Personal Information</h3>
+              <div class="info-item">
+                <div class="info-label">Full Name</div>
+                <div class="info-value"><?php echo $user->firstName . ' ' . $user->lastName; ?></div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">Email</div>
+                <div class="info-value"><?Php echo $user->email; ?></div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">Joined</div>
+                <div class="info-value"><?php echo $user->joinDate; ?></div>
+              </div>
+              <div class="text-center mt-4">
+                <a href="edit-profile.php" class="btn btn-primary btn-lg"><i class="bi bi-pencil"></i> Edit Profile</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Blogy</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>A108 Adam Street</p>
+            <p>New York, NY 535022</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Hic solutasetp</h4>
+          <ul>
+            <li><a href="#">Molestiae accusamus iure</a></li>
+            <li><a href="#">Excepturi dignissimos</a></li>
+            <li><a href="#">Suscipit distinctio</a></li>
+            <li><a href="#">Dilecta</a></li>
+            <li><a href="#">Sit quas consectetur</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Nobis illum</h4>
+          <ul>
+            <li><a href="#">Ipsam</a></li>
+            <li><a href="#">Laudantium dolorum</a></li>
+            <li><a href="#">Dinera</a></li>
+            <li><a href="#">Trodelas</a></li>
+            <li><a href="#">Flexo</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Blogy</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <div class="row mb-4">
+              <div class="col-md-4 text-center">
+                <img src="assets/img/person/profile-photo.jpg" alt="Profile Image" class="profile-image" id="modalProfileImage">
+                <input type="file" id="profileImageInput" accept="image/*" class="form-control mt-3">
+                <img id="imagePreview" class="preview-image">
+              </div>
+              <div class="col-md-8">
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="fullName" value="Alex Johnson">
+                </div>
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" value="@alexjohnson">
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" value="alex.johnson@example.com">
+                </div>
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" class="form-control" id="phone" value="+1 234 567 8900">
+                </div>
+                <div class="mb-3">
+                  <label for="location" class="form-label">Location</label>
+                  <input type="text" class="form-control" id="location" value="New York, USA">
+                </div>
+                <div class="mb-3">
+                  <label for="bio" class="form-label">Bio</label>
+                  <textarea class="form-control" id="bio" rows="3">Digital Content Creator & Blogger</textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="accountType" class="form-label">Account Type</label>
+                  <select class="form-select" id="accountType">
+                    <option value="free">Free</option>
+                    <option value="premium" selected>Premium</option>
+                    <option value="pro">Pro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="notifications" class="form-label">Email Notifications</label>
+                  <select class="form-select" id="notifications">
+                    <option value="all">All Notifications</option>
+                    <option value="important" selected>Important Only</option>
+                    <option value="none">None</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="saveProfileChanges">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Profile Image Upload and Preview
+    document.getElementById('profileImageInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('imagePreview').src = e.target.result;
+          document.getElementById('imagePreview').style.display = 'block';
+          document.getElementById('modalProfileImage').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Click on profile image to trigger file input
+    document.getElementById('modalProfileImage').addEventListener('click', function() {
+      document.getElementById('profileImageInput').click();
+    });
+
+    // Save Profile Changes
+    document.getElementById('saveProfileChanges').addEventListener('click', function() {
+      // Get all form values
+      const fullName = document.getElementById('fullName').value;
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const location = document.getElementById('location').value;
+      const bio = document.getElementById('bio').value;
+      const accountType = document.getElementById('accountType').value;
+      const notifications = document.getElementById('notifications').value;
+
+      // Update profile information on the page
+      document.querySelector('.profile-header h2').textContent = fullName;
+      document.querySelector('.profile-header .text-muted').textContent = username;
+      document.querySelector('.profile-header p:not(.text-muted)').textContent = bio;
+      document.getElementById('profileImage').src = document.getElementById('modalProfileImage').src;
+
+      // Update personal information
+      document.querySelector('.info-item:nth-child(1) .info-value').textContent = fullName;
+      document.querySelector('.info-item:nth-child(2) .info-value').textContent = email;
+      document.querySelector('.info-item:nth-child(3) .info-value').textContent = phone;
+      document.querySelector('.info-item:nth-child(4) .info-value').textContent = location;
+      document.querySelector('.info-item:nth-child(5) .info-value').textContent = 'Technology';
+
+      // Update account settings
+      document.querySelector('.info-item:nth-child(1) .info-value').textContent = username;
+      document.querySelector('.info-item:nth-child(2) .info-value').textContent = accountType.charAt(0).toUpperCase() + accountType.slice(1);
+      document.querySelector('.info-item:nth-child(5) .info-value').textContent = notifications === 'all' ? 'Enabled' : 'Disabled';
+
+      // Close the modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+      modal.hide();
+
+      // Show success message
+      alert('Profile updated successfully!');
+    });
+  </script>
+
+</body>
+</html> 

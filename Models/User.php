@@ -7,4 +7,3 @@ abstract class User {
     public $password;
     public $profilePicture; 
 }
-?>

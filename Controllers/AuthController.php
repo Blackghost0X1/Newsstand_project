@@ -1,6 +1,4 @@
 <?php
-require_once '../../NewsstandProject/Controllers/Database.php';
-require_once '../../NewsstandProject/Models/EndUser.php';
 
 class AuthController
 {
@@ -20,15 +18,17 @@ class AuthController
                 return false;
             } else {
                 if (count($result) == 0) {
-                    session_start();
+                    //session_start();
                     $_SESSION["error_mes"]="wrong cradintials";
                     return false;
                 } else {
                     //print_r($result);
-                    session_start();
+                    //session_start();
                     $user->userID=$result[0]["user_id"];
                     $user->firstName=$result[0]["first_name"];
                     $user->lastName=$result[0]["last_name"];
+                    $user->profilePicture=$result[0]["profile_photo"];
+                    $user->joinDate=$result[0]["join_date"];
                     $_SESSION['role_id']=$result[0]["role_id"];
                     $_SESSION['user']=$user;
                     return true;
@@ -47,13 +47,14 @@ class AuthController
         $this->db = new Database();
 
         if ($this->db->openConnection()) {
-            $query="INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`,`role_id`) VALUES (NULL, '$user->firstName', '$user->lastName', '$user->email', '$user->password','$role_id_enduser')";
+            $query="INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`,`role_id`,'join_date') VALUES (NULL, '$user->firstName', '$user->lastName', '$user->email', '$user->password','$role_id_enduser',now())";
             $result = $this->db->insert($query);
 
             if($result)
             {
                 session_start();
                 $user->userID=$result;
+                $user->joinDate=date("Y-m-d");
                 $_SESSION['user']=$user;
                 return true;
             }

@@ -2,7 +2,7 @@
 class SpecialMagazine extends Content{
 public $overBidUser;
 public $highestprice;
-public header;
+public $header;
 
 }
 ?>
